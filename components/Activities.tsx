@@ -1,0 +1,40 @@
+import Section from "./ui/Section";
+import Reveal from "./ui/Reveal";
+import { activities } from "@/content/activities";
+
+const accentMap = {
+  sunset: "from-sunset to-sunset-deep text-white",
+  golden: "from-golden to-sunset text-forest-deep",
+  forest: "from-forest to-forest-deep text-cream",
+};
+
+export default function Activities() {
+  return (
+    <Section
+      id="activities"
+      eyebrow="Activities"
+      title="Something for every rider"
+      intro="From podium chasers to first-time pedalers — pick your line."
+      accent="forest"
+    >
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {activities.map((a, i) => (
+          <Reveal key={a.title} delay={i * 0.06}>
+            <div className="group relative h-full overflow-hidden rounded-3xl border border-ink/10 bg-white/60 backdrop-blur p-7 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-forest/10">
+              <div
+                className={`absolute -top-12 -right-12 h-40 w-40 rounded-full bg-gradient-to-br ${accentMap[a.accent]} opacity-20 blur-2xl transition-opacity group-hover:opacity-40`}
+              />
+              <div
+                className={`relative mb-5 inline-grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${accentMap[a.accent]} shadow-lg`}
+              >
+                <a.Icon size={26} />
+              </div>
+              <h3 className="font-display text-2xl font-semibold text-forest-deep">{a.title}</h3>
+              <p className="mt-2 text-ink/70 leading-relaxed">{a.blurb}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
