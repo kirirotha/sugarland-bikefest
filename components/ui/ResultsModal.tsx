@@ -23,9 +23,10 @@ export default function ResultsModal({ open, onClose }: Props) {
       title="Race Results"
       subtitle={hasResults ? "Official results — Sugar Land Bike Fest 2026" : "Results will be posted here after race weekend."}
       maxWidth="max-w-3xl"
+      fadeIn
     >
       {!hasResults ? (
-        <div className="flex flex-col items-center justify-center text-center px-8 py-16">
+        <div className="flex flex-col items-center justify-center text-center px-5 sm:px-8 py-10 sm:py-16">
           <div className="relative mb-6">
             <div className="grid h-24 w-24 place-items-center rounded-full bg-gradient-to-br from-golden/30 to-sunset/20">
               <Trophy size={44} className="text-golden" />
@@ -50,7 +51,7 @@ export default function ResultsModal({ open, onClose }: Props) {
           </div>
         </div>
       ) : (
-        <div className="p-5 sm:p-6">
+        <div className="p-4 sm:p-6">
           {/* Race tabs */}
           {results.length > 1 && (
             <div className="mb-5 flex gap-2 flex-wrap">

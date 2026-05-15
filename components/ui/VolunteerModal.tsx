@@ -48,9 +48,9 @@ export default function VolunteerModal({ open, onClose }: Props) {
   };
 
   return (
-    <Modal open={open} onClose={handleClose} title="Get Involved" subtitle="A few hours of your time = a better festival for everyone." maxWidth="max-w-3xl">
+    <Modal open={open} onClose={handleClose} title="Get Involved" subtitle="A few hours of your time = a better festival for everyone." maxWidth="max-w-3xl" fadeIn>
       {submitted ? (
-        <div className="flex flex-col items-center justify-center text-center px-6 sm:px-8 py-12 sm:py-16">
+        <div className="flex flex-col items-center justify-center text-center px-5 sm:px-8 py-10 sm:py-16">
           <CheckCircle2 size={52} className="text-forest mb-4" />
           <h3 className="font-display text-2xl font-semibold text-forest-deep">You&apos;re in.</h3>
           <p className="mt-2 text-ink/70 max-w-sm">Thanks! We&apos;ll reach out as we get closer to event weekend.</p>
@@ -59,7 +59,14 @@ export default function VolunteerModal({ open, onClose }: Props) {
           </button>
         </div>
       ) : (
-        <div className="grid gap-6 p-5 sm:p-6 sm:grid-cols-2">
+        <>
+        {/* Placeholder notice */}
+        <div className="mx-4 sm:mx-6 mt-5 flex items-start gap-3 rounded-2xl border border-forest/30 bg-forest/10 px-4 py-3 text-sm text-ink/70">
+          <HandHelping size={16} className="shrink-0 text-forest" />
+          <span>Volunteer roles and sign-up details are still being finalized. Submit your interest early and we&apos;ll be in touch!</span>
+        </div>
+
+        <div className="grid gap-6 p-4 sm:p-6 sm:grid-cols-2">
           {/* Roles list */}
           <div className="space-y-3">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-ink/50">Volunteer roles</p>
@@ -89,7 +96,7 @@ export default function VolunteerModal({ open, onClose }: Props) {
                   type={type}
                   placeholder={placeholder}
                   {...register(id as "name" | "email")}
-                  className="w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm min-h-[44px] focus:border-sunset focus:outline-none focus:ring-2 focus:ring-sunset/20"
+                  className="w-full rounded-xl border border-ink/20 bg-white px-4 py-3 text-sm text-ink placeholder:text-ink/40 min-h-[44px] focus:border-sunset focus:outline-none focus:ring-2 focus:ring-sunset/20"
                 />
                 {errors[id as "name" | "email"] && (
                   <p className="mt-1 text-xs text-sunset-deep">{errors[id as "name" | "email"]?.message}</p>
@@ -101,7 +108,7 @@ export default function VolunteerModal({ open, onClose }: Props) {
               <select
                 {...register("interest")}
                 defaultValue=""
-                className="w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm min-h-[44px] focus:border-sunset focus:outline-none focus:ring-2 focus:ring-sunset/20"
+                className="w-full rounded-xl border border-ink/20 bg-white px-4 py-3 text-sm text-ink placeholder:text-ink/40 min-h-[44px] focus:border-sunset focus:outline-none focus:ring-2 focus:ring-sunset/20"
               >
                 <option value="" disabled>Pick a role…</option>
                 {roles.map((r) => <option key={r.title} value={r.title}>{r.title}</option>)}
@@ -115,7 +122,7 @@ export default function VolunteerModal({ open, onClose }: Props) {
               <textarea
                 rows={3}
                 {...register("notes")}
-                className="w-full rounded-xl border border-ink/15 bg-white px-4 py-3 text-sm focus:border-sunset focus:outline-none focus:ring-2 focus:ring-sunset/20"
+                className="w-full rounded-xl border border-ink/20 bg-white px-4 py-3 text-sm text-ink focus:border-sunset focus:outline-none focus:ring-2 focus:ring-sunset/20"
               />
             </div>
             <button
@@ -127,6 +134,7 @@ export default function VolunteerModal({ open, onClose }: Props) {
             </button>
           </form>
         </div>
+        </>
       )}
     </Modal>
   );

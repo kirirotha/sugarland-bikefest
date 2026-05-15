@@ -8,29 +8,29 @@ export type Tier = {
 export const tiers: Tier[] = [
   {
     name: "Title Sponsor",
-    price: "$15,000",
-    perks: ["Name on event", "Top logo placement", "Main-stage moments", "10 VIP passes", "Booth in Vendor Village"],
+    price: "$2,500",
+    perks: ["Event naming rights", "Top logo on all materials", "Main-stage recognition", "6 VIP passes", "Prime booth in Vendor Village", "Social media spotlight", "Banner placement at finish line"],
     highlight: true,
   },
   {
-    name: "Trail Sponsor",
-    price: "$7,500",
-    perks: ["Featured logo", "Stage callouts", "6 VIP passes", "Premium booth", "Social shoutouts"],
-  },
-  {
-    name: "Pump Sponsor",
-    price: "$3,000",
-    perks: ["Pump track signage", "Logo on website", "4 VIP passes", "Vendor booth"],
-  },
-  {
-    name: "Community",
+    name: "Race Sponsor",
     price: "$1,000",
-    perks: ["Website logo", "2 VIP passes", "Shared community booth"],
+    perks: ["Logo on race bibs & signage", "Stage callout during awards", "4 VIP passes", "Vendor booth", "Website & social logo"],
   },
   {
-    name: "In-Kind",
-    price: "Goods / services",
-    perks: ["Logo recognition", "Booth space", "Social mention"],
+    name: "Gold Sponsor",
+    price: "$500",
+    perks: ["Logo on event website", "Signage at sponsored area", "2 VIP passes", "Social media mention"],
+  },
+  {
+    name: "Silver Sponsor",
+    price: "$100",
+    perks: ["Name on event website", "1 VIP pass", "Community recognition"],
+  },
+  {
+    name: "FBMBA Member",
+    price: "Discounted",
+    perks: ["Existing FBMBA sponsors receive discounted rates", "Contact us for your personalized package"],
   },
 ];
 

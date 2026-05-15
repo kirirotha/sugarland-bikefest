@@ -87,7 +87,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(eventJsonLd) }}
         />
         {/* Aerial background with Ken Burns pan */}
-        <div className="fixed inset-0 -z-20 overflow-hidden">
+        <div className="fixed inset-x-0 top-0 -z-20 overflow-hidden" style={{ height: "100lvh" }}>
           <div
             className="animate-ken-burns absolute inset-[-8%] bg-cover bg-center"
             style={{ backgroundImage: "url('/images/bg.jpg')" }}

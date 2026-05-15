@@ -16,7 +16,7 @@ function diff() {
 
 const Cell = ({ value, label }: { value: number; label: string }) => (
   <div className="flex flex-col items-center">
-    <div className="relative w-14 sm:w-18 md:w-24 h-14 sm:h-18 md:h-24 rounded-xl sm:rounded-2xl bg-forest-deep/90 backdrop-blur shadow-xl shadow-forest/30 overflow-hidden">
+    <div className="relative w-[3.1rem] sm:w-16 md:w-24 h-[3.1rem] sm:h-16 md:h-24 rounded-xl sm:rounded-2xl bg-forest-deep/90 backdrop-blur shadow-xl shadow-forest/30 overflow-hidden">
       <div className="absolute inset-x-0 top-1/2 h-px bg-white/10" />
       <AnimatePresence mode="popLayout" initial={false}>
         <motion.span
@@ -25,13 +25,13 @@ const Cell = ({ value, label }: { value: number; label: string }) => (
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -20, opacity: 0 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-          className="absolute inset-0 grid place-items-center font-display text-2xl sm:text-3xl md:text-5xl font-semibold text-cream tabular-nums"
+          className="absolute inset-0 grid place-items-center font-display text-xl sm:text-2xl md:text-5xl font-semibold text-cream tabular-nums"
         >
           {value.toString().padStart(2, "0")}
         </motion.span>
       </AnimatePresence>
     </div>
-    <span className="mt-1.5 text-[10px] sm:text-xs uppercase tracking-[0.18em] text-cream/80">{label}</span>
+    <span className="mt-1.5 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.12em] sm:tracking-[0.18em] text-cream/80">{label}</span>
   </div>
 );
 
@@ -49,7 +49,7 @@ export default function Countdown() {
 
   return (
     <div
-      className="flex items-start justify-center gap-2 sm:gap-3 md:gap-5 pb-6"
+      className="flex items-start justify-center gap-1.5 sm:gap-3 md:gap-5 pb-6"
       aria-live="polite"
       aria-label={`Countdown: ${time.days} days, ${time.hours} hours, ${time.minutes} minutes, ${time.seconds} seconds`}
     >

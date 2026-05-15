@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
+import SubscribeModal from "./ui/SubscribeModal";
 
 const links = [
   { href: "#about", label: "About" },
@@ -18,6 +19,7 @@ const links = [
 export default function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [subscribeOpen, setSubscribeOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -61,12 +63,13 @@ export default function Nav() {
           ))}
         </ul>
 
-        <a
-          href="#hero"
+        <button
+          onClick={() => setSubscribeOpen(true)}
           className="hidden xl:inline-flex rounded-full bg-sunset px-4 py-2 text-sm font-semibold text-white shadow-md shadow-sunset/30 hover:bg-sunset-deep transition whitespace-nowrap"
         >
           Get Updates
-        </a>
+        </button>
+        <SubscribeModal open={subscribeOpen} onClose={() => setSubscribeOpen(false)} />
 
 
         <button
@@ -79,13 +82,13 @@ export default function Nav() {
       </nav>
 
       {open && (
-        <div className="xl:hidden border-t border-white/10 bg-[#0e0c0a]/95 backdrop-blur">
+        <div className="xl:hidden border-t border-white/10 bg-[#0e0c0a]/95 backdrop-blur-md">
           <ul className="flex flex-col px-4 sm:px-6 py-3 gap-1">
             {links.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
-                  className="block py-3 text-base text-cream/80 hover:text-golden min-h-[44px] flex items-center"
+                  className="flex items-center py-3 text-base text-cream/80 hover:text-golden min-h-[44px]"
                   onClick={() => setOpen(false)}
                 >
                   {l.label}
@@ -93,13 +96,12 @@ export default function Nav() {
               </li>
             ))}
             <li className="pt-2 pb-1">
-              <a
-                href="#hero"
-                onClick={() => setOpen(false)}
+              <button
+                onClick={() => { setOpen(false); setSubscribeOpen(true); }}
                 className="block w-full text-center rounded-full bg-sunset px-5 py-3 text-sm font-semibold text-white"
               >
                 Get Updates
-              </a>
+              </button>
             </li>
           </ul>
         </div>

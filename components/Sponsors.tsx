@@ -22,17 +22,17 @@ export default function Sponsors() {
       accent="sunset"
     >
       <Reveal>
-        <div className="rounded-3xl border border-ink/10 bg-cream-warm/70 backdrop-blur p-8 sm:p-10 mb-8">
-          <div className="flex flex-wrap items-center justify-between gap-6">
+        <div className="rounded-2xl sm:rounded-3xl border border-ink/10 bg-cream-warm/70 backdrop-blur p-5 sm:p-8 md:p-10 mb-8">
+          <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-5">
             <div className="flex items-start gap-4">
-              <div className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-sunset text-white shadow-lg shadow-sunset/30">
-                <Megaphone size={26} />
+              <div className="grid h-12 w-12 sm:h-14 sm:w-14 shrink-0 place-items-center rounded-2xl bg-sunset text-white shadow-lg shadow-sunset/30">
+                <Megaphone size={24} />
               </div>
               <div>
-                <h3 className="font-display text-2xl font-semibold text-forest-deep">
+                <h3 className="font-display text-xl sm:text-2xl font-semibold text-forest-deep">
                   Become a sponsor
                 </h3>
-                <p className="mt-1 text-ink/70 max-w-md">
+                <p className="mt-1 text-sm sm:text-base text-ink/70 max-w-md">
                   Multiple tiers available — from title naming rights to community-level in-kind support.
                   Custom packages welcome.
                 </p>
@@ -40,7 +40,7 @@ export default function Sponsors() {
             </div>
             <button
               onClick={() => openWithScroll("sponsors", () => setModalOpen(true))}
-              className="inline-flex items-center gap-2 rounded-full bg-sunset px-6 py-3 font-semibold text-sm text-white shadow-lg shadow-sunset/30 hover:bg-sunset-deep transition-all hover:-translate-y-0.5"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 rounded-full bg-sunset px-6 py-3 font-semibold text-sm text-white shadow-lg shadow-sunset/30 hover:bg-sunset-deep transition-all hover:-translate-y-0.5 min-h-[44px]"
             >
               View Sponsorship Tiers <ArrowRight size={16} />
             </button>

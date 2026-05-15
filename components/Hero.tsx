@@ -1,12 +1,15 @@
 "use client";
+import { useState } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Countdown from "./Countdown";
+import SubscribeModal from "./ui/SubscribeModal";
 
 const L = "/images/Sugar Land Bike Fest Logo";
 
 export default function Hero() {
+  const [subscribeOpen, setSubscribeOpen] = useState(false);
   // Track window scroll (not a section) — logo reacts to overall page scroll
   const { scrollY } = useScroll();
 
@@ -48,9 +51,9 @@ export default function Hero() {
   return (
     <>
       {/* ── Fixed logo — stays on screen as the rest of the page scrolls ── */}
-      <div className="fixed inset-0 z-[5] pointer-events-none flex items-start justify-center pt-14">
+      <div className="fixed inset-x-0 top-0 z-[5] pointer-events-none flex justify-center" style={{ height: "100svh", alignItems: "center", paddingBottom: "10svh" }}>
         <div
-          className="relative w-[min(88vw,640px)] flex-shrink-0"
+          className="relative w-[min(92vw,640px)] flex-shrink-0"
           style={{ aspectRatio: "1198 / 950" }}
         >
           {layers.map(({ src, x, y, rotate, opacity }) => (
@@ -93,7 +96,7 @@ export default function Hero() {
         </div>
 
         {/* Content panel — pushed to bottom half so logo is visible above it */}
-        <div className="relative mx-auto flex max-w-5xl flex-col items-center px-4 sm:px-6 pt-[93vh] pb-20 sm:pb-28">
+        <div className="relative mx-auto flex max-w-5xl flex-col items-center px-3 sm:px-6 pt-[88vh] pb-16 sm:pb-28">
           {/* Scroll indicator */}
           <motion.div
             animate={{ y: [0, 8, 0] }}
@@ -102,14 +105,14 @@ export default function Hero() {
           >
             <ChevronDown size={28} strokeWidth={1.5} />
           </motion.div>
-          <div className="w-full max-w-2xl rounded-3xl bg-[#0e0c0a]/70 backdrop-blur-md border border-white/10 shadow-2xl shadow-black/40 px-6 sm:px-10 py-8 sm:py-10 flex flex-col items-center">
+          <div className="w-full max-w-2xl rounded-3xl bg-[#0e0c0a]/70 backdrop-blur-md border border-white/10 shadow-2xl shadow-black/40 px-4 sm:px-8 md:px-10 py-6 sm:py-8 md:py-10 flex flex-col items-center">
 
-            <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-semibold text-white leading-[0.95] text-center">
+            <h1 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-semibold text-white leading-[0.95] text-center">
               Ride. Race.
               <br />
               <span className="italic text-cream">Gather. Grow.</span>
             </h1>
-            <p className="mt-4 max-w-2xl text-base sm:text-lg text-cream/80 text-center">
+            <p className="mt-3 sm:mt-4 max-w-2xl text-sm sm:text-base md:text-lg text-cream/80 text-center">
               A community cycling festival weekend hosted by{" "}
               <a href="https://fbmba.org/" target="_blank" rel="noreferrer" className="font-semibold text-white hover:underline underline-offset-2">
                 Fort Bend Mountain Bike Association
@@ -122,12 +125,12 @@ export default function Hero() {
             </div>
 
             <div className="mt-4 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-              <a
-                href="#subscribe"
+              <button
+                onClick={() => setSubscribeOpen(true)}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 sm:px-7 py-3.5 text-sm font-semibold text-sunset-deep shadow-lg shadow-black/20 hover:bg-cream transition-all hover:-translate-y-0.5 min-h-[44px]"
               >
                 Get Updates <ArrowRight size={16} />
-              </a>
+              </button>
               <a
                 href="#activities"
                 className="inline-flex items-center justify-center gap-2 rounded-full border border-cream/40 bg-cream/10 px-6 sm:px-7 py-3.5 text-sm font-semibold text-cream hover:bg-cream/20 transition min-h-[44px]"
@@ -136,26 +139,7 @@ export default function Hero() {
               </a>
             </div>
 
-            <form
-              id="subscribe"
-              className="mt-5 sm:mt-6 flex w-full max-w-sm sm:max-w-md gap-2 rounded-full bg-white p-1.5 shadow-xl shadow-black/15"
-              action="/api/subscribe"
-              method="post"
-            >
-              <input
-                type="email"
-                required
-                name="email"
-                placeholder="you@example.com"
-                className="flex-1 min-w-0 rounded-full bg-transparent px-4 sm:px-5 py-2.5 text-sm text-ink placeholder:text-ink/50 focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="shrink-0 rounded-full bg-sunset px-4 sm:px-5 py-2.5 text-sm font-semibold text-white hover:bg-sunset-deep transition min-h-[40px]"
-              >
-                Notify Me
-              </button>
-            </form>
+            <SubscribeModal open={subscribeOpen} onClose={() => setSubscribeOpen(false)} />
 
           </div>
         </div>

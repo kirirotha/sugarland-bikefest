@@ -25,11 +25,11 @@ export default function FAQ() {
               className="overflow-hidden rounded-2xl border border-ink/10 bg-white/60 backdrop-blur"
             >
               <button
-                className="flex w-full items-center justify-between gap-4 p-5 text-left transition hover:bg-cream-warm/50"
+                className="flex w-full items-center justify-between gap-3 p-4 sm:p-5 text-left transition hover:bg-cream-warm/50 min-h-[44px]"
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
               >
-                <span className="font-semibold text-forest-deep">{item.q}</span>
+                <span className="font-semibold text-sm sm:text-base text-forest-deep">{item.q}</span>
                 <Plus
                   size={20}
                   className={`shrink-0 text-sunset transition-transform duration-300 ${isOpen ? "rotate-45" : ""}`}
@@ -43,7 +43,7 @@ export default function FAQ() {
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
                   >
-                    <p className="px-5 pb-5 text-ink/70 leading-relaxed">{item.a}</p>
+                    <p className="px-4 sm:px-5 pb-4 sm:pb-5 text-sm sm:text-base text-ink/70 leading-relaxed">{item.a}</p>
                   </motion.div>
                 )}
               </AnimatePresence>

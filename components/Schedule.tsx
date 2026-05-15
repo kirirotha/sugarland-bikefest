@@ -39,7 +39,7 @@ function groupByTime(items: ScheduleItem[]): Map<number, ScheduleItem[]> {
 function EventCard({ item }: { item: ScheduleItem }) {
   const Icon = tagIcon[item.tag];
   return (
-    <div className={`flex flex-col gap-2 rounded-2xl border border-l-4 ${tagBorder[item.tag]} border-ink/10 bg-white/70 backdrop-blur px-3 py-3 sm:px-3 sm:py-2`}>
+    <div className={`flex flex-col gap-2 rounded-2xl border border-l-4 ${tagBorder[item.tag]} border-ink/10 bg-white/70 backdrop-blur px-3 py-3`}>
       <div className="flex items-center gap-2">
         <div className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg ${tagChip[item.tag]}`}>
           <Icon size={13} />

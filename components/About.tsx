@@ -16,19 +16,19 @@ export default function About() {
       eyebrow="The Festival"
       accent="golden"
     >
-      <p className="mb-12 max-w-3xl font-display text-xl sm:text-2xl font-semibold text-cream leading-snug">
+      <p className="mb-8 sm:mb-12 max-w-3xl font-display text-base sm:text-xl md:text-2xl font-semibold text-cream leading-snug">
         Sugar Land Bike Fest is a weekend celebration of every kind of cycling. Whether you race, ride for fitness, wheelie or roll on training wheels —{" "}
         <span className="text-sunset">this weekend is for you.</span>
       </p>
-      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-4">
         {tiles.map(({ Icon, title, body }, i) => (
           <Reveal key={title} delay={i * 0.08}>
-            <div className="group h-full rounded-3xl border border-white/10 bg-white/8 backdrop-blur p-6 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20">
-              <div className="mb-4 grid h-12 w-12 place-items-center rounded-2xl bg-sunset text-white shadow-md shadow-sunset/30 transition-transform group-hover:rotate-6">
-                <Icon size={22} />
+            <div className="group h-full rounded-2xl sm:rounded-3xl border border-white/10 bg-white/8 backdrop-blur p-5 sm:p-6 transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-black/20">
+              <div className="mb-3 sm:mb-4 grid h-10 w-10 sm:h-12 sm:w-12 place-items-center rounded-xl sm:rounded-2xl bg-sunset text-white shadow-md shadow-sunset/30 transition-transform group-hover:rotate-6">
+                <Icon size={20} />
               </div>
-              <h3 className="font-display text-2xl font-semibold text-cream">{title}</h3>
-              <p className="mt-2 text-sm text-cream/65 leading-relaxed">{body}</p>
+              <h3 className="font-display text-lg sm:text-xl md:text-2xl font-semibold text-cream">{title}</h3>
+              <p className="mt-2 text-xs sm:text-sm text-cream/65 leading-relaxed">{body}</p>
             </div>
           </Reveal>
         ))}

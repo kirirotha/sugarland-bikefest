@@ -4,7 +4,7 @@ export default function Footer() {
   return (
     <footer className="relative z-10 mt-10 bg-forest-deep text-cream">
       <div className="absolute inset-x-0 -top-1 h-2 bg-gradient-to-r from-golden via-sunset to-sunset-deep" />
-      <div className="mx-auto max-w-6xl px-6 py-16">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 py-10 sm:py-16">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-2">
             <div className="flex items-center gap-2">
@@ -49,13 +49,13 @@ export default function Footer() {
             © {new Date().getFullYear()} Sugar Land Bike Fest · Hosted by FBMBA. All rights reserved.
           </p>
           <div className="flex gap-3">
-            <a aria-label="Instagram" href="#" className="grid h-9 w-9 place-items-center rounded-full border border-cream/20 hover:bg-sunset hover:border-sunset transition">
+            <a aria-label="Instagram" href="#" className="grid h-11 w-11 place-items-center rounded-full border border-cream/20 hover:bg-sunset hover:border-sunset transition min-h-[44px] min-w-[44px]">
               <Camera size={16} />
             </a>
-            <a aria-label="Facebook" href="#" className="grid h-9 w-9 place-items-center rounded-full border border-cream/20 hover:bg-sunset hover:border-sunset transition">
+            <a aria-label="Facebook" href="#" className="grid h-11 w-11 place-items-center rounded-full border border-cream/20 hover:bg-sunset hover:border-sunset transition min-h-[44px] min-w-[44px]">
               <FbIcon size={16} />
             </a>
-            <a aria-label="Email" href="mailto:hello@sugarlandbikefest.com" className="grid h-9 w-9 place-items-center rounded-full border border-cream/20 hover:bg-sunset hover:border-sunset transition">
+            <a aria-label="Email" href="mailto:hello@sugarlandbikefest.com" className="grid h-11 w-11 place-items-center rounded-full border border-cream/20 hover:bg-sunset hover:border-sunset transition min-h-[44px] min-w-[44px]">
               <Mail size={16} />
             </a>
           </div>

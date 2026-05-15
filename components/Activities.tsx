@@ -20,17 +20,17 @@ export default function Activities() {
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {activities.map((a, i) => (
           <Reveal key={a.title} delay={i * 0.06}>
-            <div className="group relative h-full overflow-hidden rounded-3xl border border-ink/10 bg-white/60 backdrop-blur p-7 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-forest/10">
+            <div className="group relative h-full overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 bg-white/60 backdrop-blur p-5 sm:p-7 transition-all hover:-translate-y-1 hover:shadow-2xl hover:shadow-forest/10">
               <div
                 className={`absolute -top-12 -right-12 h-40 w-40 rounded-full bg-gradient-to-br ${accentMap[a.accent]} opacity-20 blur-2xl transition-opacity group-hover:opacity-40`}
               />
               <div
-                className={`relative mb-5 inline-grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br ${accentMap[a.accent]} shadow-lg`}
+                className={`relative mb-4 sm:mb-5 inline-grid h-11 w-11 sm:h-14 sm:w-14 place-items-center rounded-xl sm:rounded-2xl bg-gradient-to-br ${accentMap[a.accent]} shadow-lg`}
               >
-                <a.Icon size={26} />
+                <a.Icon size={22} />
               </div>
-              <h3 className="font-display text-2xl font-semibold text-forest-deep">{a.title}</h3>
-              <p className="mt-2 text-ink/70 leading-relaxed">{a.blurb}</p>
+              <h3 className="font-display text-xl sm:text-2xl font-semibold text-forest-deep">{a.title}</h3>
+              <p className="mt-2 text-sm sm:text-base text-ink/70 leading-relaxed">{a.blurb}</p>
             </div>
           </Reveal>
         ))}

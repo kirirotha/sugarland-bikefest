@@ -7,7 +7,7 @@ import { MapPin, Car, Bike, Bus, ExternalLink } from "lucide-react";
 // 3. Replace EMBED_SRC below with that value
 const EMBED_SRC = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6940.259431961929!2d-95.6640950874939!3d29.570828869821515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640e3fd2446ef2f%3A0xec6dcd0f123fd266!2sThe%20Crown%20Festival%20Park%20at%20Sugar%20Land!5e0!3m2!1sen!2sus!4v1778728036247!5m2!1sen!2sus";
 
-const DIRECTIONS_URL = "https://share.google/n4Ydxr8RTFnBVQjxu";
+const DIRECTIONS_URL = "https://maps.app.goo.gl/bEKWwyC7MWatYk5AA";
 
 const tips = [
   { Icon: Car,   title: "Parking",   body: "Free on-site parking with overflow at nearby lots." },
@@ -26,7 +26,7 @@ export default function Location() {
     >
       <div className="grid gap-8 lg:grid-cols-5">
         {/* Map */}
-        <div className="lg:col-span-3 relative overflow-hidden rounded-3xl border border-ink/10 shadow-xl shadow-forest/20 min-h-[240px] sm:min-h-[320px] lg:min-h-[360px]">
+        <div className="lg:col-span-3 relative overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 shadow-xl shadow-forest/20 min-h-[220px] sm:min-h-[300px] lg:min-h-[360px]">
           {EMBED_SRC ? (
             <iframe
               src={EMBED_SRC}
