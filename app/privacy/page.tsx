@@ -74,7 +74,7 @@ export default function PrivacyPage() {
             </p>
             <p>
               In compliance with CAN-SPAM, our mailing address is:<br />
-              <span className="text-cream">Fort Bend Mountain Bike Association · Sugar Land, TX 77479</span>
+              <span className="text-cream">Fort Bend Mountain Bike Association · 1210 Oak Glen Drive, Sugar Land, TX 77479</span>
             </p>
           </Section>
 
