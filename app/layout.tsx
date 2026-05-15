@@ -34,15 +34,12 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: "Sugar Land Bike Fest",
     type: "website",
-    images: ["/og.png"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Sugar Land Bike Fest",
     description: "Ride. Celebrate. Sugar Land. Oct 24–25, 2026.",
-    images: ["/og.png"],
   },
-  icons: { icon: "/favicon.ico" },
 };
 
 export const viewport: Viewport = {
