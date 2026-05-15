@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, Bike, Baby, Store, Music, Sparkles } from "lucide-react";
 import Section from "./ui/Section";
@@ -78,9 +78,21 @@ function MobileSchedule({ items }: { items: ScheduleItem[] }) {
 }
 
 /* ── Desktop: grid with tooltip pills ── */
-function TooltipPill({ item }: { item: ScheduleItem }) {
+function TooltipPill({
+  item,
+  pillId,
+  activeId,
+  setActiveId,
+}: {
+  item: ScheduleItem;
+  pillId: string;
+  activeId: string | null;
+  setActiveId: (id: string | null) => void;
+}) {
   const [hovered, setHovered] = useState(false);
   const Icon = tagIcon[item.tag];
+  const tapped = activeId === pillId;
+  const show = hovered || tapped;
   return (
     <div
       className="relative"
@@ -88,8 +100,14 @@ function TooltipPill({ item }: { item: ScheduleItem }) {
       onMouseLeave={() => setHovered(false)}
     >
       <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          setActiveId(tapped ? null : pillId);
+        }}
         className={`w-full text-left flex items-center gap-2 rounded-xl border border-l-4 ${tagBorder[item.tag]} border-ink/10 bg-white/70 backdrop-blur px-3 py-2 text-sm transition-all hover:-translate-y-0.5 hover:shadow-md hover:shadow-forest/10 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sunset/30`}
         aria-label={`${item.title} — ${item.blurb}`}
+        aria-expanded={tapped}
       >
         <div className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg ${tagChip[item.tag]}`}>
           <Icon size={12} />
@@ -97,7 +115,7 @@ function TooltipPill({ item }: { item: ScheduleItem }) {
         <span className="truncate font-medium text-ink text-xs">{item.title}</span>
       </button>
       <AnimatePresence>
-        {hovered && (
+        {show && (
           <motion.div
             initial={{ opacity: 0, y: 6, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -126,8 +144,30 @@ function TooltipPill({ item }: { item: ScheduleItem }) {
 function DesktopSchedule({ items }: { items: ScheduleItem[] }) {
   const grouped = groupByTime(items);
   const trackCount = Math.max(...items.map((i) => i.track)) + 1;
+  const [activeId, setActiveId] = useState<string | null>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!activeId) return;
+    const onDocClick = (e: MouseEvent | TouchEvent) => {
+      if (!wrapRef.current) return;
+      if (!wrapRef.current.contains(e.target as Node)) setActiveId(null);
+    };
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setActiveId(null);
+    };
+    document.addEventListener("mousedown", onDocClick);
+    document.addEventListener("touchstart", onDocClick, { passive: true });
+    document.addEventListener("keydown", onKey);
+    return () => {
+      document.removeEventListener("mousedown", onDocClick);
+      document.removeEventListener("touchstart", onDocClick);
+      document.removeEventListener("keydown", onKey);
+    };
+  }, [activeId]);
+
   return (
-    <>
+    <div ref={wrapRef}>
       {trackCount > 1 && (
         <div className="mb-2 grid gap-2" style={{ gridTemplateColumns: `4.5rem repeat(${trackCount}, 1fr)` }}>
           <div />
@@ -150,14 +190,14 @@ function DesktopSchedule({ items }: { items: ScheduleItem[] }) {
               </div>
               {row.map((item, trackIdx) =>
                 item
-                  ? <TooltipPill key={trackIdx} item={item} />
+                  ? <TooltipPill key={trackIdx} item={item} pillId={`${startMin}-${trackIdx}`} activeId={activeId} setActiveId={setActiveId} />
                   : <div key={trackIdx} className="h-9 rounded-xl border border-dashed border-ink/8" />
               )}
             </div>
           );
         })}
       </div>
-    </>
+    </div>
   );
 }
 
@@ -170,7 +210,7 @@ export default function Schedule() {
       id="schedule"
       eyebrow="Schedule"
       title="Three days, one big party."
-      intro="Hover over any event for details. More fun activities coming soon!"
+      intro="Tap or hover any event for details. More fun activities coming soon!"
       accent="golden"
     >
       {/* Day tabs */}

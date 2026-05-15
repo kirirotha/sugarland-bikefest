@@ -2,6 +2,13 @@
 
 html {
   scroll-behavior: smooth;
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+button, a, [role="button"], input, select, textarea {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 :root {

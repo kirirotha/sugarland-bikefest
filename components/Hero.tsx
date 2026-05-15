@@ -48,29 +48,35 @@ export default function Hero() {
   return (
     <>
       {/* ── Fixed logo — stays on screen as the rest of the page scrolls ── */}
-      <div className="fixed inset-0 z-[5] pointer-events-none flex items-start justify-center pt-14">
+      <div
+        className="fixed inset-0 z-[5] flex items-start justify-center pt-14"
+        style={{ pointerEvents: "none" }}
+        aria-hidden
+      >
         <div
           className="relative w-[min(88vw,640px)] flex-shrink-0"
-          style={{ aspectRatio: "1198 / 950" }}
+          style={{ aspectRatio: "1198 / 950", pointerEvents: "none" }}
         >
           {layers.map(({ src, x, y, rotate, opacity }) => (
             <motion.div
               key={src}
               className="absolute inset-0"
-              style={{ x, y, rotate, opacity }}
+              style={{ x, y, rotate, opacity, pointerEvents: "none" }}
             >
-              <Image src={src} alt="" fill className="object-contain" priority />
+              <Image src={src} alt="" fill className="object-contain pointer-events-none" priority />
             </motion.div>
           ))}
 
-          {/* FBMBA Banner — no movement, just fades. Clickable to fbmba.org */}
           {/* FBMBA Banner — decorative overlay, no interaction */}
-          <motion.div className="absolute inset-0" style={{ opacity: bannerOp }}>
+          <motion.div
+            className="absolute inset-0"
+            style={{ opacity: bannerOp, pointerEvents: "none" }}
+          >
             <Image
               src={`${L}/Sugar Land Bike Fest - FBMBA Banner.png`}
               alt="FBMBA Presents"
               fill
-              className="object-contain"
+              className="object-contain pointer-events-none"
               priority
             />
           </motion.div>
