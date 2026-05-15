@@ -12,6 +12,8 @@ export default function Home() {
   return (
     <>
       <Hero />
+      {/* z-[10] ensures all sections scroll over the fixed logo layers */}
+      <div className="relative z-[10]">
       <About />
       <Activities />
       <Schedule />
@@ -20,6 +22,7 @@ export default function Home() {
       <Volunteer />
       <LocationSection />
       <FAQ />
+      </div>
     </>
   );
 }

@@ -5,6 +5,11 @@ import Reveal from "./ui/Reveal";
 import SponsorModal from "./ui/SponsorModal";
 import { Megaphone, ArrowRight } from "lucide-react";
 
+function openWithScroll(id: string, open: () => void) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  setTimeout(open, 500);
+}
+
 export default function Sponsors() {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -34,7 +39,7 @@ export default function Sponsors() {
               </div>
             </div>
             <button
-              onClick={() => setModalOpen(true)}
+              onClick={() => openWithScroll("sponsors", () => setModalOpen(true))}
               className="inline-flex items-center gap-2 rounded-full bg-sunset px-6 py-3 font-semibold text-sm text-white shadow-lg shadow-sunset/30 hover:bg-sunset-deep transition-all hover:-translate-y-0.5"
             >
               View Sponsorship Tiers <ArrowRight size={16} />

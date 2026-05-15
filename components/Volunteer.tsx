@@ -5,6 +5,11 @@ import Reveal from "./ui/Reveal";
 import VolunteerModal from "./ui/VolunteerModal";
 import { ArrowRight, HeartHandshake } from "lucide-react";
 
+function openWithScroll(id: string, open: () => void) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  setTimeout(open, 500);
+}
+
 export default function Volunteer() {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -34,7 +39,7 @@ export default function Volunteer() {
               </div>
             </div>
             <button
-              onClick={() => setModalOpen(true)}
+              onClick={() => openWithScroll("volunteer", () => setModalOpen(true))}
               className="inline-flex items-center gap-2 rounded-full bg-forest px-6 py-3 font-semibold text-sm text-cream shadow-lg shadow-forest/30 hover:bg-forest-deep transition-all hover:-translate-y-0.5"
             >
               See Roles &amp; Sign Up <ArrowRight size={16} />

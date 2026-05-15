@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
@@ -27,19 +28,28 @@ export default function Nav() {
 
   return (
     <header
-      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? "backdrop-blur-md bg-[#0e0c0a]/85 border-b border-white/10 shadow-lg shadow-black/30" : "bg-transparent"
+      className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 border-b ${
+        scrolled ? "backdrop-blur-md bg-[#0e0c0a]/85 border-white/10 shadow-lg shadow-black/30" : "bg-transparent border-transparent"
       }`}
     >
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 sm:px-6 py-3 sm:py-4">
-        <Link href="/" className="flex items-center gap-2 group min-w-0">
-          <span className="grid h-8 w-8 sm:h-9 sm:w-9 shrink-0 place-items-center rounded-full bg-sunset text-white font-display font-bold text-sm transition-transform group-hover:rotate-12">
-            SL
-          </span>
-          <span className="font-display text-sm sm:text-base lg:text-lg font-semibold text-cream truncate">
+        <div className="flex items-center gap-2 min-w-0">
+          <a href="https://fbmba.org/" target="_blank" rel="noreferrer" className="relative shrink-0 group/fbmba" aria-label="Fort Bend Mountain Bike Association">
+            <Image
+              src="/images/FBMBA-logo.png"
+              alt="FBMBA logo"
+              width={40}
+              height={40}
+              className="rounded-full hover:scale-110 transition-transform duration-200"
+            />
+            <span className="pointer-events-none absolute left-0 top-full mt-2 w-max rounded-lg bg-[#0e0c0a]/90 px-3 py-1.5 text-xs text-cream shadow-lg opacity-0 group-hover/fbmba:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+              Fort Bend Mountain Bike Association ↗
+            </span>
+          </a>
+          <Link href="/" className="font-display text-sm sm:text-base lg:text-lg font-semibold text-cream truncate hover:text-golden transition-colors">
             Sugar Land Bike Fest
-          </span>
-        </Link>
+          </Link>
+        </div>
 
         <ul className="hidden xl:flex items-center gap-5 text-sm font-medium text-cream/80">
           {links.map((l) => (
@@ -57,6 +67,7 @@ export default function Nav() {
         >
           Get Updates
         </a>
+
 
         <button
           aria-label="Toggle menu"

@@ -6,6 +6,11 @@ import ResultsModal from "./ui/ResultsModal";
 import { Trophy, ArrowRight, Clock } from "lucide-react";
 import { results } from "@/content/results";
 
+function openWithScroll(id: string, open: () => void) {
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  setTimeout(open, 500);
+}
+
 export default function Results() {
   const [modalOpen, setModalOpen] = useState(false);
   const hasResults = results.length > 0;
@@ -36,7 +41,7 @@ export default function Results() {
               </div>
             </div>
             <button
-              onClick={() => setModalOpen(true)}
+              onClick={() => openWithScroll("results", () => setModalOpen(true))}
               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-golden to-sunset px-6 py-3 font-semibold text-sm text-white shadow-lg shadow-sunset/30 hover:opacity-90 transition-all hover:-translate-y-0.5"
             >
               {hasResults ? "See Full Results" : "Preview Race Categories"}

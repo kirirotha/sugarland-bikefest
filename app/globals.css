@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   --color-sunset: #f26c3a;
   --color-sunset-deep: #c44a18;

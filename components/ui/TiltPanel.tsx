@@ -64,7 +64,7 @@ export default function TiltPanel({
       >
         {/* Dark frosted panel */}
         <div className="absolute inset-0 rounded-3xl overflow-hidden">
-          <div className="absolute inset-0 bg-[#0e0c0a]/45 backdrop-blur-md" />
+          <div className="absolute inset-0 bg-[#0e0c0a]/70 backdrop-blur-md" />
           {/* Top accent line */}
           <div
             className={`absolute inset-x-8 top-0 h-px bg-gradient-to-r ${accentBorder[accent]} transition-opacity duration-300 ${

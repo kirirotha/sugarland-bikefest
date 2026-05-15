@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef, ReactNode } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { X } from "lucide-react";
 
 type Props = {
@@ -33,16 +33,16 @@ export default function Modal({ open, onClose, title, subtitle, maxWidth = "max-
       role="dialog"
       aria-label={title}
     >
-      {/* Backdrop — clicks here close the modal */}
+      {/* Backdrop — sits behind panel, clicks here close the modal */}
       <div
-        className="absolute inset-0 bg-forest-deep/70 backdrop-blur-sm cursor-pointer"
+        className="absolute inset-0 z-0 cursor-pointer"
         onClick={onClose}
       />
 
       {/* Panel */}
       <motion.div
         ref={panelRef}
-        className={`relative z-10 w-full ${maxWidth} max-h-[90vh] sm:max-h-[82vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-cream shadow-2xl shadow-black/30`}
+        className={`relative z-[10] w-full ${maxWidth} max-h-[90vh] sm:max-h-[82vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl bg-cream shadow-2xl shadow-black/30`}
         initial={{ y: 60, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         exit={{ y: 60, opacity: 0 }}
