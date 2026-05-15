@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { CheckCircle2, HandHelping, Megaphone, Wrench, ShieldCheck, Flag } from "lucide-react";
+import { CheckCircle2, HandHelping, Wrench, ShieldCheck, Flag, Route, GraduationCap } from "lucide-react";
 import Modal from "./Modal";
 
 const schema = z.object({
@@ -15,11 +15,12 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const roles = [
-  { Icon: Flag,        title: "Course Marshal",    body: "Keep racers safe and on-route." },
-  { Icon: Wrench,      title: "Setup & Teardown",  body: "Build it Friday, break it down Sunday night." },
-  { Icon: HandHelping, title: "Kids Zone Helper",  body: "Strider course, helmet fitting, sticker duty." },
-  { Icon: Megaphone,   title: "Vendor Liaison",    body: "Help vendors check in and find their spot." },
-  { Icon: ShieldCheck, title: "First Aid Support", body: "Coordinate with on-site medical team." },
+  { Icon: Flag,           title: "Course Marshal",           body: "Keep racers safe and on-route." },
+  { Icon: Wrench,         title: "Setup & Teardown",         body: "Build it Friday, break it down Sunday night." },
+  { Icon: HandHelping,    title: "Kids Zone Helper",         body: "Strider course, helmet fitting, sticker duty." },
+  { Icon: ShieldCheck,    title: "First Aid Support",        body: "Coordinate with on-site medical team." },
+  { Icon: Route,          title: "Group Ride Organizer",     body: "Help plan and lead group rides throughout the weekend." },
+  { Icon: GraduationCap, title: "Skills Clinic Coach",      body: "Lead beginner and intermediate skills sessions on the pump track." },
 ];
 
 type Props = { open: boolean; onClose: () => void };
