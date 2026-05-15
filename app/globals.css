@@ -4,6 +4,13 @@ html {
   scroll-behavior: smooth;
   overflow-y: scroll;
   scrollbar-gutter: stable; /* always reserve scrollbar space to prevent layout shift */
+  touch-action: manipulation;
+  -webkit-text-size-adjust: 100%;
+}
+
+button, a, [role="button"], input, select, textarea {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 :root {

@@ -1,5 +1,12 @@
 "use client";
-import { useRef, useState, ReactNode, useCallback } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+  useSyncExternalStore,
+  ReactNode,
+  useCallback,
+} from "react";
 import { motion, useSpring, useTransform } from "framer-motion";
 
 type Props = {
@@ -14,6 +21,39 @@ const accentBorder: Record<string, string> = {
   golden: "from-transparent via-golden/60 to-transparent",
   forest: "from-transparent via-forest/50 to-transparent",
 };
+
+type OrientationEventInit = typeof DeviceOrientationEvent & {
+  requestPermission?: () => Promise<"granted" | "denied">;
+};
+
+let orientationPermissionRequested = false;
+
+function subscribeCoarsePointer(cb: () => void) {
+  if (typeof window === "undefined") return () => {};
+  const mql = window.matchMedia("(pointer: coarse)");
+  mql.addEventListener("change", cb);
+  return () => mql.removeEventListener("change", cb);
+}
+
+function getCoarsePointer() {
+  if (typeof window === "undefined") return false;
+  return window.matchMedia("(pointer: coarse)").matches;
+}
+
+function ensureOrientationPermission() {
+  if (typeof window === "undefined") return;
+  if (orientationPermissionRequested) return;
+  const ctor = window.DeviceOrientationEvent as OrientationEventInit | undefined;
+  if (!ctor || typeof ctor.requestPermission !== "function") return;
+  orientationPermissionRequested = true;
+  const trigger = () => {
+    ctor.requestPermission?.().catch(() => {});
+    window.removeEventListener("touchend", trigger);
+    window.removeEventListener("click", trigger);
+  };
+  window.addEventListener("touchend", trigger, { once: true });
+  window.addEventListener("click", trigger, { once: true });
+}
 
 export default function TiltPanel({
   children,
@@ -31,29 +71,77 @@ export default function TiltPanel({
   const rotateY = useTransform(rawX, [-1, 1], [-maxTilt * 0.2, maxTilt * 0.2]);
   const rotateX = useTransform(rawY, [-1, 1], [maxTilt, -maxTilt]);
 
+  const isCoarse = useSyncExternalStore(
+    subscribeCoarsePointer,
+    getCoarsePointer,
+    () => false
+  );
+
+  useEffect(() => {
+    if (!isCoarse) return;
+    ensureOrientationPermission();
+
+    let frame = 0;
+    let pendingX = 0;
+    let pendingY = 0;
+    let hasPending = false;
+
+    const flush = () => {
+      frame = 0;
+      if (!hasPending) return;
+      hasPending = false;
+      rawX.set(pendingX);
+      rawY.set(pendingY);
+    };
+
+    const onOrient = (e: DeviceOrientationEvent) => {
+      const gamma = e.gamma ?? 0;
+      const beta = e.beta ?? 0;
+      pendingX = Math.max(-1, Math.min(1, gamma / 30));
+      pendingY = Math.max(-1, Math.min(1, (beta - 45) / 30));
+      hasPending = true;
+      if (!frame) frame = requestAnimationFrame(flush);
+    };
+
+    window.addEventListener("deviceorientation", onOrient);
+    return () => {
+      window.removeEventListener("deviceorientation", onOrient);
+      if (frame) cancelAnimationFrame(frame);
+      rawX.set(0);
+      rawY.set(0);
+    };
+  }, [isCoarse, rawX, rawY]);
+
   const onMouseMove = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
+      if (isCoarse) return;
       const el = ref.current;
       if (!el) return;
       const { left, top, width, height } = el.getBoundingClientRect();
       rawX.set(((e.clientX - left) / width) * 2 - 1);
       rawY.set(((e.clientY - top) / height) * 2 - 1);
     },
-    [rawX, rawY]
+    [rawX, rawY, isCoarse]
   );
 
   const onMouseLeave = useCallback(() => {
+    if (isCoarse) return;
     setHovered(false);
     rawX.set(0);
     rawY.set(0);
-  }, [rawX, rawY]);
+  }, [rawX, rawY, isCoarse]);
+
+  const onMouseEnter = useCallback(() => {
+    if (isCoarse) return;
+    setHovered(true);
+  }, [isCoarse]);
 
   return (
     <div style={{ perspective: "1200px" }}>
       <motion.div
         ref={ref}
         onMouseMove={onMouseMove}
-        onMouseEnter={() => setHovered(true)}
+        onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
         className={`relative rounded-3xl transition-shadow duration-300 ${
