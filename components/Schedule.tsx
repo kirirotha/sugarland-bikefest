@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trophy, Bike, Baby, Store, Music, Sparkles } from "lucide-react";
 import Section from "./ui/Section";
-import { schedule, type ScheduleItem } from "@/content/schedule";
+import { schedule, type ScheduleItem, type ScheduleDay } from "@/content/schedule";
 
 const tagIcon = { race: Trophy, ride: Bike, kids: Baby, village: Store, ceremony: Music, social: Sparkles } as const;
 const tagLabel = { race: "Race", ride: "Ride", kids: "Kids", village: "Village", ceremony: "Ceremony", social: "Social" } as const;
@@ -23,117 +23,68 @@ const tagBorder: Record<ScheduleItem["tag"], string> = {
   kids:     "border-l-golden",
   village:  "border-l-ink/30",
   ceremony: "border-l-forest-deep",
-  social:   "border-l-golden",
+  social:   "border-l-golden/60",
 };
 
-function groupByTime(items: ScheduleItem[]): Map<number, ScheduleItem[]> {
-  const map = new Map<number, ScheduleItem[]>();
-  for (const item of items) {
-    const bucket = map.get(item.startMin) ?? [];
-    bucket.push(item);
-    map.set(item.startMin, bucket);
-  }
-  return new Map([...map.entries()].sort((a, b) => a[0] - b[0]));
+const SLOT = 60;  // minutes per grid row
+const ROW_H = 44; // px per row
+const COL_COUNT = 3; // always render this many track columns
+
+function formatMin(min: number) {
+  const h = Math.floor(min / 60) % 24;
+  const m = min % 60;
+  const ampm = h >= 12 ? "PM" : "AM";
+  const hour = h % 12 || 12;
+  return `${hour}:${String(m).padStart(2, "0")} ${ampm}`;
 }
 
-function EventCard({ item }: { item: ScheduleItem }) {
-  const Icon = tagIcon[item.tag];
-  return (
-    <div className={`flex flex-col gap-2 rounded-2xl border border-l-4 ${tagBorder[item.tag]} border-ink/10 bg-white/70 backdrop-blur px-3 py-3`}>
-      <div className="flex items-center gap-2">
-        <div className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg ${tagChip[item.tag]}`}>
-          <Icon size={13} />
-        </div>
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-ink/50">
-          {tagLabel[item.tag]} · ~{item.durationMin}m
-        </span>
-      </div>
-      <div>
-        <p className="font-semibold text-sm text-ink leading-snug">{item.title}</p>
-        <p className="mt-0.5 text-xs text-ink/60 leading-snug">{item.blurb}</p>
-      </div>
-    </div>
-  );
-}
-
-/* ── Mobile: stacked list ── */
-function MobileSchedule({ items }: { items: ScheduleItem[] }) {
-  const grouped = groupByTime(items);
-  return (
-    <div className="space-y-4">
-      {[...grouped.entries()].map(([startMin, slotItems]) => (
-        <div key={startMin}>
-          <p className="mb-2 font-display text-sm font-semibold text-forest-deep">
-            {slotItems[0].time}
-          </p>
-          <div className="space-y-2 pl-3 border-l-2 border-sunset/30">
-            {slotItems.map((item) => (
-              <EventCard key={item.title} item={item} />
-            ))}
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-/* ── Desktop: grid with tooltip pills ── */
-function TooltipPill({
+/* ── Mobile: time grid (mirrors desktop, single column) ── */
+function MobileEventBlock({
   item,
-  pillId,
-  activeId,
-  setActiveId,
+  gridStyle,
+  open,
+  onToggle,
 }: {
   item: ScheduleItem;
-  pillId: string;
-  activeId: string | null;
-  setActiveId: (id: string | null) => void;
+  gridStyle: React.CSSProperties;
+  open: boolean;
+  onToggle: () => void;
 }) {
-  const [hovered, setHovered] = useState(false);
   const Icon = tagIcon[item.tag];
-  const tapped = activeId === pillId;
-  const show = hovered || tapped;
+  const endTime = formatMin(item.startMin + item.durationMin);
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
+    <div className="relative" style={gridStyle}>
       <button
         type="button"
-        onClick={(e) => {
-          e.stopPropagation();
-          setActiveId(tapped ? null : pillId);
-        }}
-        className={`w-full text-left flex items-center gap-2 rounded-xl border border-l-4 ${tagBorder[item.tag]} border-ink/10 bg-white/70 backdrop-blur px-3 py-2 text-sm transition-all hover:-translate-y-0.5 hover:shadow-md hover:shadow-forest/10 hover:bg-white focus:outline-none focus:ring-2 focus:ring-sunset/30`}
-        aria-label={`${item.title} — ${item.blurb}`}
-        aria-expanded={tapped}
+        onClick={(e) => { e.stopPropagation(); onToggle(); }}
+        className={`h-full w-full text-left rounded-2xl border border-l-4 ${tagBorder[item.tag]} border-ink/10 bg-white/80 backdrop-blur px-2 py-2 flex items-start gap-2 overflow-hidden transition-all duration-200 ${open ? "bg-white shadow-lg shadow-forest/10" : ""}`}
       >
-        <div className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg ${tagChip[item.tag]}`}>
+        <div className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg ${tagChip[item.tag]} mt-0.5`}>
           <Icon size={12} />
         </div>
-        <span className="truncate font-medium text-ink text-xs">{item.title}</span>
+        <span className="font-semibold text-xs text-ink leading-snug line-clamp-2 break-words min-w-0">{item.title}</span>
       </button>
       <AnimatePresence>
-        {show && (
+        {open && (
           <motion.div
             initial={{ opacity: 0, y: 6, scale: 0.97 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 4, scale: 0.97 }}
             transition={{ duration: 0.15 }}
-            className="pointer-events-none absolute z-50 bottom-full left-1/2 -translate-x-1/2 mb-2 w-52 rounded-2xl border border-ink/10 bg-white/95 backdrop-blur shadow-xl shadow-forest/15 p-3"
+            onClick={(e) => { e.stopPropagation(); onToggle(); }}
+            className="fixed z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(280px,80vw)] rounded-2xl border border-white/10 bg-[#0e0c0a]/90 backdrop-blur-md shadow-2xl shadow-black/50 p-4 cursor-pointer"
           >
-            <div className="absolute top-full left-1/2 -translate-x-1/2 h-0 w-0 border-x-[6px] border-x-transparent border-t-[6px] border-t-white/95" />
-            <div className="flex items-center gap-2 mb-1.5">
+            <div className="flex items-center gap-2 mb-2">
               <div className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg ${tagChip[item.tag]}`}>
                 <Icon size={13} />
               </div>
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-ink/50">
-                {tagLabel[item.tag]} · ~{item.durationMin}m
-              </span>
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-golden/80">{tagLabel[item.tag]}</p>
+                <p className="text-[11px] text-cream/60 leading-none">{item.time} – {endTime}</p>
+              </div>
             </div>
-            <p className="font-semibold text-sm text-ink leading-snug">{item.title}</p>
-            <p className="mt-1 text-xs text-ink/60 leading-snug">{item.blurb}</p>
+            <p className="font-display font-semibold text-sm text-cream leading-snug">{item.title}</p>
+            <p className="mt-1.5 text-xs text-cream/60 leading-relaxed">{item.blurb}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -141,59 +92,228 @@ function TooltipPill({
   );
 }
 
-function DesktopSchedule({ items }: { items: ScheduleItem[] }) {
-  const grouped = groupByTime(items);
-  const trackCount = Math.max(...items.map((i) => i.track)) + 1;
-  const [activeId, setActiveId] = useState<string | null>(null);
+function MobileSchedule({ day }: { day: ScheduleDay }) {
+  const { items, displayEndMin } = day;
+  const [activeTitle, setActiveTitle] = useState<string | null>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (!activeId) return;
-    const onDocClick = (e: MouseEvent | TouchEvent) => {
-      if (!wrapRef.current) return;
-      if (!wrapRef.current.contains(e.target as Node)) setActiveId(null);
+    if (!activeTitle) return;
+    const close = (e: MouseEvent | TouchEvent) => {
+      if (!wrapRef.current?.contains(e.target as Node)) setActiveTitle(null);
     };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setActiveId(null);
-    };
-    document.addEventListener("mousedown", onDocClick);
-    document.addEventListener("touchstart", onDocClick, { passive: true });
-    document.addEventListener("keydown", onKey);
+    document.addEventListener("mousedown", close);
+    document.addEventListener("touchstart", close, { passive: true });
     return () => {
-      document.removeEventListener("mousedown", onDocClick);
-      document.removeEventListener("touchstart", onDocClick);
-      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", close);
+      document.removeEventListener("touchstart", close);
     };
-  }, [activeId]);
+  }, [activeTitle]);
+
+  const trackCount = Math.max(...items.map((i) => i.track)) + 1;
+  const gridStart = Math.min(...items.map((i) => i.startMin));
+  const gridEnd   = displayEndMin ?? Math.max(...items.map((i) => i.startMin + i.durationMin));
+  const totalRows = Math.ceil((gridEnd - gridStart) / SLOT);
+
+  const labels: number[] = [];
+  for (let m = gridStart; m <= gridEnd; m += SLOT) labels.push(m);
+
+  function toRow(min: number) {
+    return Math.round((min - gridStart) / SLOT) + 1;
+  }
+
+  return (
+    <div
+      ref={wrapRef}
+      style={{
+        display: "grid",
+        gridTemplateColumns: `3.5rem repeat(${trackCount}, 1fr)`,
+        gridTemplateRows: `repeat(${totalRows}, ${ROW_H}px)`,
+        columnGap: "8px",
+      }}
+    >
+      {/* Time labels */}
+      {labels.map((min, i) => (
+        <div
+          key={min}
+          style={{ gridColumn: 1, gridRow: i + 1, alignSelf: "start" }}
+          className="text-right pr-2 pt-1"
+        >
+          <span className="font-display text-xs font-semibold text-golden tabular-nums leading-none">
+            {formatMin(min).split(" ")[0]}
+          </span>
+          <span className="block text-[9px] text-cream/50 uppercase tracking-wide leading-none mt-0.5">
+            {formatMin(min).split(" ")[1]}
+          </span>
+        </div>
+      ))}
+
+      {/* Horizontal grid lines */}
+      {labels.map((min, i) => (
+        <div
+          key={`line-${min}`}
+          style={{
+            gridColumn: `2 / ${trackCount + 2}`,
+            gridRow: i + 1,
+            alignSelf: "start",
+            borderTop: "1px dashed rgba(14,12,10,0.08)",
+            pointerEvents: "none",
+          }}
+        />
+      ))}
+
+      {/* Events */}
+      {items.map((item) => {
+        const startRow = toRow(item.startMin);
+        const endRow   = toRow(item.startMin + item.durationMin);
+        return (
+          <MobileEventBlock
+            key={item.title}
+            item={item}
+            open={activeTitle === item.title}
+            onToggle={() => setActiveTitle(activeTitle === item.title ? null : item.title)}
+            gridStyle={{
+              gridColumn: item.track + 2,
+              gridRow: `${startRow} / ${endRow}`,
+              margin: "4px 0",
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+}
+
+/* ── Desktop: proportional time grid, hover tooltip ── */
+function EventBlock({
+  item,
+  gridStyle,
+}: {
+  item: ScheduleItem;
+  gridStyle: React.CSSProperties;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const Icon = tagIcon[item.tag];
+  const endTime = formatMin(item.startMin + item.durationMin);
+  return (
+    <div
+      className="relative"
+      style={gridStyle}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {/* Event pill */}
+      <div
+        className={`h-full rounded-2xl border border-l-4 ${tagBorder[item.tag]} border-ink/10 bg-white/80 backdrop-blur px-3 py-2 flex items-center gap-2 cursor-default transition-all duration-200 ${hovered ? "bg-white shadow-lg shadow-forest/10" : ""}`}
+      >
+        <div className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg ${tagChip[item.tag]}`}>
+          <Icon size={12} />
+        </div>
+        <span className="font-semibold text-sm text-ink leading-snug truncate">{item.title}</span>
+      </div>
+
+      {/* Tooltip */}
+      <AnimatePresence>
+        {hovered && (
+          <motion.div
+            initial={{ opacity: 0, y: 6, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 4, scale: 0.97 }}
+            transition={{ duration: 0.15 }}
+            className="pointer-events-none absolute z-50 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[min(280px,80%)] rounded-2xl border border-white/10 bg-[#0e0c0a]/90 backdrop-blur-md shadow-2xl shadow-black/50 p-4"
+          >
+            {/* Tag + time */}
+            <div className="flex items-center gap-2 mb-2">
+              <div className={`grid h-7 w-7 shrink-0 place-items-center rounded-lg ${tagChip[item.tag]}`}>
+                <Icon size={13} />
+              </div>
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-golden/80">{tagLabel[item.tag]}</p>
+                <p className="text-[11px] text-cream/60 leading-none">{item.time} – {endTime}</p>
+              </div>
+            </div>
+            <p className="font-display font-semibold text-sm text-cream leading-snug">{item.title}</p>
+            <p className="mt-1.5 text-xs text-cream/60 leading-relaxed">{item.blurb}</p>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+}
+
+function DesktopSchedule({ day }: { day: ScheduleDay }) {
+  const { items, displayEndMin } = day;
+  const trackCount = Math.max(...items.map((i) => i.track)) + 1;
+  const gridStart = Math.min(...items.map((i) => i.startMin));
+  const gridEnd   = displayEndMin ?? Math.max(...items.map((i) => i.startMin + i.durationMin));
+  const totalRows = Math.ceil((gridEnd - gridStart) / SLOT);
+
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [, forceRender] = useState(0);
+  useEffect(() => { forceRender(1); }, []);
+
+  // Generate one label per SLOT from gridStart through gridEnd (inclusive)
+  const labels: number[] = [];
+  for (let m = gridStart; m <= gridEnd; m += SLOT) labels.push(m);
+
+  function toRow(min: number) {
+    return Math.round((min - gridStart) / SLOT) + 1;
+  }
 
   return (
     <div ref={wrapRef}>
-      {trackCount > 1 && (
-        <div className="mb-2 grid gap-2" style={{ gridTemplateColumns: `4.5rem repeat(${trackCount}, 1fr)` }}>
-          <div />
-          {Array.from({ length: trackCount }, (_, t) => (
-            <div key={t} className="text-[11px] font-semibold uppercase tracking-wider text-ink/40 pl-1">
-              Track {t + 1}
-            </div>
-          ))}
-        </div>
-      )}
-      <div className="space-y-1.5">
-        {[...grouped.entries()].map(([startMin, slotItems]) => {
-          const row: (ScheduleItem | null)[] = Array(trackCount).fill(null);
-          for (const item of slotItems) row[item.track] = item;
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: `5rem repeat(${COL_COUNT}, 1fr)`,
+          gridTemplateRows: `repeat(${totalRows}, ${ROW_H}px)`,
+          columnGap: "8px",
+        }}
+      >
+        {/* Time labels */}
+        {labels.map((min, i) => (
+          <div
+            key={min}
+            style={{ gridColumn: 1, gridRow: i + 1, alignSelf: "start" }}
+            className="text-right pr-3 pt-1"
+          >
+            <span className="font-display text-sm font-semibold text-golden tabular-nums leading-none">
+              {formatMin(min).split(" ")[0]}
+            </span>
+            <span className="block text-[10px] text-cream/50 uppercase tracking-wide leading-none mt-0.5">
+              {formatMin(min).split(" ")[1]}
+            </span>
+          </div>
+        ))}
+
+        {/* Horizontal grid lines */}
+        {labels.map((min, i) => (
+          <div
+            key={`line-${min}`}
+            style={{
+              gridColumn: `2 / ${COL_COUNT + 2}`,
+              gridRow: i + 1,
+              alignSelf: "start",
+              borderTop: "1px dashed rgba(14,12,10,0.08)",
+              pointerEvents: "none",
+            }}
+          />
+        ))}
+
+        {/* Events */}
+        {items.map((item) => {
+          const startRow = toRow(item.startMin);
+          const endRow   = toRow(item.startMin + item.durationMin);
           return (
-            <div key={startMin} className="grid gap-2 items-center" style={{ gridTemplateColumns: `4.5rem repeat(${trackCount}, 1fr)` }}>
-              <div className="text-right pr-3">
-                <span className="font-display text-sm font-semibold text-golden tabular-nums">{slotItems[0].time.split(" ")[0]}</span>
-                <span className="block text-[10px] text-cream/50 uppercase tracking-wide leading-none">{slotItems[0].time.split(" ")[1]}</span>
-              </div>
-              {row.map((item, trackIdx) =>
-                item
-                  ? <TooltipPill key={trackIdx} item={item} pillId={`${startMin}-${trackIdx}`} activeId={activeId} setActiveId={setActiveId} />
-                  : <div key={trackIdx} className="h-9 rounded-xl border border-dashed border-ink/8" />
-              )}
-            </div>
+            <EventBlock
+              key={item.title}
+              item={item}
+              gridStyle={{
+                gridColumn: item.track + 2,
+                gridRow: `${startRow} / ${endRow}`,
+                margin: "4px 0",
+              }}
+            />
           );
         })}
       </div>
@@ -210,7 +330,7 @@ export default function Schedule() {
       id="schedule"
       eyebrow="Schedule"
       title="Three days, one big party."
-      intro="Tap or hover any event for details. More fun activities coming soon!"
+      intro="Events are subject to change. More activities coming soon!"
       accent="golden"
     >
       {/* Day tabs */}
@@ -243,13 +363,11 @@ export default function Schedule() {
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.25 }}
         >
-          {/* Mobile: stacked cards */}
           <div className="sm:hidden">
-            <MobileSchedule items={day.items} />
+            <MobileSchedule day={day} />
           </div>
-          {/* Desktop: tooltip pill grid */}
           <div className="hidden sm:block">
-            <DesktopSchedule items={day.items} />
+            <DesktopSchedule day={day} />
           </div>
         </motion.div>
       </AnimatePresence>
