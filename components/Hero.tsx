@@ -1,6 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+
+function subscribeMobile(cb: () => void) {
+  if (typeof window === "undefined") return () => {};
+  const mql = window.matchMedia("(max-width: 767px)");
+  mql.addEventListener("change", cb);
+  return () => mql.removeEventListener("change", cb);
+}
+const getIsMobile = () =>
+  typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
 import { ArrowRight, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Countdown from "./Countdown";
@@ -10,42 +19,45 @@ const L = "/images/Sugar Land Bike Fest Logo";
 
 export default function Hero() {
   const [subscribeOpen, setSubscribeOpen] = useState(false);
+  const isMobile = useSyncExternalStore(subscribeMobile, getIsMobile, () => false);
+  const s = isMobile ? 0.25 : 1;
+
   // Track window scroll (not a section) — logo reacts to overall page scroll
   const { scrollY } = useScroll();
 
   // Each layer scatters to its corner over the first 500px of scroll, then stays
   // Pink — "SUGAR" — top-left corner
-  const pinkX   = useTransform(scrollY, [0, 500], [0, -300]);
-  const pinkY   = useTransform(scrollY, [0, 500], [0, -15]);
-  const pinkRot = useTransform(scrollY, [0, 500], [0, -12]);
+  const pinkX   = useTransform(scrollY, [0, 500], [0, -300 * s + (isMobile ? 0 : 60)]);
+  const pinkY   = useTransform(scrollY, [0, 500], [0, -15 * s + (isMobile ? 0 : 60)]);
+  const pinkRot = useTransform(scrollY, [0, 500], [0, -12 * s]);
   const pinkOp  = useTransform(scrollY, [0, 200, 500], [1, 0.5, 0.25]);
 
   // Cyan — "LAND" + banner — top-right corner
-  const cyanX   = useTransform(scrollY, [0, 500], [0, 280]);
-  const cyanY   = useTransform(scrollY, [0, 500], [0, -110]);
-  const cyanRot = useTransform(scrollY, [0, 500], [0, 12]);
+  const cyanX   = useTransform(scrollY, [0, 500], [0, 280 * s + (isMobile ? 0 : -60)]);
+  const cyanY   = useTransform(scrollY, [0, 500], [0, -110 * s + (isMobile ? 0 : 20)]);
+  const cyanRot = useTransform(scrollY, [0, 500], [0, 12 * s]);
   const cyanOp  = useTransform(scrollY, [0, 200, 500], [1, 0.5, 0.25]);
 
   // Dark — "BIKE" + gear + FBMBA — bottom-left corner
-  const darkX   = useTransform(scrollY, [0, 500], [0, -280]);
-  const darkY   = useTransform(scrollY, [0, 500], [0, 150]);
-  const darkRot = useTransform(scrollY, [0, 500], [0, -12]);
+  const darkX   = useTransform(scrollY, [0, 500], [0, -280 * s]);
+  const darkY   = useTransform(scrollY, [0, 500], [0, 150 * s]);
+  const darkRot = useTransform(scrollY, [0, 500], [0, -12 * s]);
   const darkOp  = useTransform(scrollY, [0, 200, 500], [1, 0.5, 0.50]);
 
   // Yellow — "FEST" + lightning — bottom-right corner
-  const yellowX   = useTransform(scrollY, [0, 500], [0, 280]);
-  const yellowY   = useTransform(scrollY, [0, 500], [0, 70]);
-  const yellowRot = useTransform(scrollY, [0, 500], [0, 12]);
+  const yellowX   = useTransform(scrollY, [0, 500], [0, 280 * s + (isMobile ? 0 : -60)]);
+  const yellowY   = useTransform(scrollY, [0, 500], [0, 70 * s + (isMobile ? 70 : 0)]);
+  const yellowRot = useTransform(scrollY, [0, 500], [0, 12 * s]);
   const yellowOp  = useTransform(scrollY, [0, 200, 500], [1, 0.5, 0.25]);
 
   // Banner — stays in place, fades to match dark blue final opacity
   const bannerOp = useTransform(scrollY, [0, 200, 500], [1, 0.5, 0.50]);
 
   const layers = [
-    { src: `${L}/logo-dark.png`,   x: darkX,   y: darkY,   rotate: darkRot,   opacity: darkOp   },
     { src: `${L}/logo-pink.png`,   x: pinkX,   y: pinkY,   rotate: pinkRot,   opacity: pinkOp   },
     { src: `${L}/logo-yellow.png`, x: yellowX, y: yellowY, rotate: yellowRot, opacity: yellowOp },
     { src: `${L}/logo-cyan.png`,   x: cyanX,   y: cyanY,   rotate: cyanRot,   opacity: cyanOp   },
+    { src: `${L}/logo-dark.png`,   x: darkX,   y: darkY,   rotate: darkRot,   opacity: darkOp   },
   ];
 
   return (
