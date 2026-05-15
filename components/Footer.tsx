@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Camera, Users as FbIcon, Mail } from "lucide-react";
 
 export default function Footer() {
@@ -47,6 +48,10 @@ export default function Footer() {
         <div className="mt-12 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 border-t border-cream/15 pt-6">
           <p className="text-xs text-cream/60">
             © {new Date().getFullYear()} Sugar Land Bike Fest · Hosted by FBMBA. All rights reserved.
+            {" "}·{" "}
+            <Link href="/privacy" className="hover:text-sunset transition underline underline-offset-2">
+              Privacy Policy
+            </Link>
           </p>
           <div className="flex gap-3">
             <a aria-label="Instagram" href="#" className="grid h-11 w-11 place-items-center rounded-full border border-cream/20 hover:bg-sunset hover:border-sunset transition min-h-[44px] min-w-[44px]">
