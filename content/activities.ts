@@ -14,5 +14,5 @@ export const activities: Activity[] = [
   { title: "Kids Zone", blurb: "Strider course, helmet decorating, balance-bike races.", Icon: Baby, accent: "golden" },
   { title: "Beginner Clinics", blurb: "Coached skills sessions — no experience required.", Icon: GraduationCap, accent: "forest" },
   { title: "Group Rides", blurb: "Road, gravel, MTB, BMX, urban — pick your pace.", Icon: Users, accent: "sunset" },
-  { title: "Vendor Village", blurb: "Local shops, brands, food trucks, and live music.", Icon: Store, accent: "golden" },
+  { title: "Vendor Village", blurb: "Local shops, brands, food trucks, and music.", Icon: Store, accent: "golden" },
 ];

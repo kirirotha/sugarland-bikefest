@@ -21,7 +21,7 @@ const roles = [
   { Icon: ShieldCheck,    title: "First Aid Support",        body: "Coordinate with on-site medical team." },
   { Icon: Navigation,     title: "Group Ride Organizer",     body: "Help plan and lead group rides throughout the weekend." },
   { Icon: GraduationCap, title: "Skills Clinic Coach",      body: "Lead beginner and intermediate skills sessions." },
-  { Icon: ClipboardList, title: "Race Sign Up Helper",      body: "Assist riders with registration, waivers, and check-in on race day." },
+  { Icon: ClipboardList, title: "Race Registration",      body: "Assist riders with registration, waivers, and check-in on race day." },
 ];
 
 type Props = { open: boolean; onClose: () => void };

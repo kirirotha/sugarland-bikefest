@@ -3,10 +3,10 @@ import Reveal from "./ui/Reveal";
 import { Bike, Heart, Users, Sun } from "lucide-react";
 
 const tiles = [
-  { Icon: Bike, title: "Race", body: "MTB time trial, pump track brackets, and demo runs across two days." },
-  { Icon: Sun, title: "Ride", body: "Group rides for road, gravel, BMX, urban — and every pace in between." },
+  { Icon: Bike, title: "Race", body: "MTB time trial, pump track brackets, and more across two days." },
+  { Icon: Sun, title: "Ride", body: "Group rides for road, gravel, BMX, urban — all and every pace in between." },
   { Icon: Users, title: "Community", body: "Local cycling clubs, shops, and sponsors gathered in one Vendor Village." },
-  { Icon: Heart, title: "Family", body: "Kids Zone, beginner clinics, food trucks, and live music all weekend." },
+  { Icon: Heart, title: "Family", body: "Kids Zone, beginner clinics, food trucks, and music all weekend." },
 ];
 
 export default function About() {
