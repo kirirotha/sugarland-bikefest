@@ -64,7 +64,7 @@ export default function Hero() {
     <>
       {/* ── Fixed logo — stays on screen as the rest of the page scrolls ── */}
       <div
-        className="fixed inset-x-0 top-0 z-[5] flex justify-center"
+        className="fixed inset-x-0 top-0 z-[5] flex justify-center overflow-hidden"
         style={{ height: "100svh", alignItems: "center", paddingBottom: "10svh", pointerEvents: "none" }}
         aria-hidden
       >
