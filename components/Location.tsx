@@ -33,7 +33,7 @@ export default function Location() {
       intro="Both venues are side by side in Sugar Land — Crown Festival Park on Saturday, Sugar Land Memorial Park on Sunday."
       accent="forest"
     >
-      <div className="grid gap-8 lg:grid-cols-5">
+      <div className="grid gap-8 lg:grid-cols-5 overflow-hidden">
         {/* Map */}
         <div className="lg:col-span-3 relative overflow-hidden rounded-2xl sm:rounded-3xl border border-ink/10 shadow-xl shadow-forest/20 min-h-[220px] sm:min-h-[300px] lg:min-h-[360px]">
           {EMBED_SRC ? (
@@ -86,7 +86,7 @@ export default function Location() {
               href={directionsUrl}
               target="_blank"
               rel="noreferrer"
-              className="flex items-start gap-4 rounded-2xl border border-ink/10 bg-white/60 backdrop-blur p-4 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/10 group"
+              className="flex items-start gap-4 rounded-2xl border border-ink/10 bg-white/60 backdrop-blur p-4 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/10 group overflow-hidden w-full"
             >
               <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-forest text-cream shadow-md">
                 <Calendar size={18} />
