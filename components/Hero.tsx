@@ -135,7 +135,7 @@ export default function Hero() {
               <a href="https://fbmba.org/" target="_blank" rel="noreferrer" className="font-semibold text-white hover:underline underline-offset-2">
                 Fort Bend Mountain Bike Association
               </a>
-              {" "}— The Crown Festival Park, Sugar Land, TX · Oct 24–25, 2026
+              {" "}— The Crown Festival Park and Suagr Land Memorial Park, Sugar Land, TX · Oct 24–25, 2026
             </p>
 
             <div className="mt-6 sm:mt-8 pb-2">
