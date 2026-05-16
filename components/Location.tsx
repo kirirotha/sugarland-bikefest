@@ -3,17 +3,17 @@ import { MapPin, Car, Bike, Bus, ExternalLink, Calendar } from "lucide-react";
 
 // Shows both venues — Crown Festival Park (Sat) and Sugar Land Memorial Park (Sun)
 // Zoomed out slightly to fit both in frame
-const EMBED_SRC = "https://www.google.com/maps/d/embed?mid=104oqvGK7ZZElXx2hbiRUMQV7RUix2PE&ehbc=2E312F&noprof=1";
+const EMBED_SRC = "https://www.google.com/maps/d/embed?mid=104oqvGK7ZZElXx2hbiRUMQV7RUix2PE&ll=29.56281177523550,-95.64798411061027&z=15&ehbc=2E312F&noprof=1";
 
 const venues = [
   {
     day: "Saturday, Oct 24",
-    name: "Crown Festival Park",
+    name: "Sugar Land Pump Track",
     directionsUrl: "https://maps.app.goo.gl/bEKWwyC7MWatYk5AA",
   },
   {
     day: "Sunday, Oct 25",
-    name: "Sugar Land Memorial Park",
+    name: "South Meadow at Sugar Land Memorial Park",
     directionsUrl: "https://maps.app.goo.gl/HXVgFRz3cVD1oBAA8",
   },
 ];
