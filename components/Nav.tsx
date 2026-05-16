@@ -48,12 +48,12 @@ export default function Nav() {
               Fort Bend Mountain Bike Association ↗
             </span>
           </a>
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          <a
+            href="#"
             className="font-display text-sm sm:text-base lg:text-lg font-semibold text-cream truncate hover:text-golden transition-colors"
           >
             Sugar Land Bike Fest
-          </button>
+          </a>
         </div>
 
         <ul className="hidden xl:flex items-center gap-5 text-sm font-medium text-cream/80">
