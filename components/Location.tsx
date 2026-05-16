@@ -1,18 +1,27 @@
 import Section from "./ui/Section";
-import { MapPin, Car, Bike, Bus, ExternalLink } from "lucide-react";
+import { MapPin, Car, Bike, Bus, ExternalLink, Calendar } from "lucide-react";
 
-// To get the embed src:
-// 1. Open the share link in Google Maps
-// 2. Share → Embed a map → copy the src="..." value
-// 3. Replace EMBED_SRC below with that value
-const EMBED_SRC = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6940.259431961929!2d-95.6640950874939!3d29.570828869821515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640e3fd2446ef2f%3A0xec6dcd0f123fd266!2sThe%20Crown%20Festival%20Park%20at%20Sugar%20Land!5e0!3m2!1sen!2sus!4v1778728036247!5m2!1sen!2sus";
+// Shows both venues — Crown Festival Park (Sat) and Sugar Land Memorial Park (Sun)
+// Zoomed out slightly to fit both in frame
+const EMBED_SRC = "https://www.google.com/maps/d/embed?mid=104oqvGK7ZZElXx2hbiRUMQV7RUix2PE&ehbc=2E312F&noprof=1";
 
-const DIRECTIONS_URL = "https://maps.app.goo.gl/bEKWwyC7MWatYk5AA";
+const venues = [
+  {
+    day: "Saturday, Oct 24",
+    name: "Crown Festival Park",
+    directionsUrl: "https://maps.app.goo.gl/bEKWwyC7MWatYk5AA",
+  },
+  {
+    day: "Sunday, Oct 25",
+    name: "Sugar Land Memorial Park",
+    directionsUrl: "https://maps.app.goo.gl/HXVgFRz3cVD1oBAA8",
+  },
+];
 
 const tips = [
-  { Icon: Car,   title: "Parking",   body: "Free on-site parking with overflow at nearby lots." },
-  { Icon: Bike,  title: "Ride In",   body: "Plentiful bike racks. Best way to skip traffic." },
-  { Icon: Bus,   title: "Rideshare", body: "Dedicated drop-off zone near the main gate." },
+  { Icon: Car,  title: "Parking",   body: "Free on-site parking with overflow at nearby lots." },
+  { Icon: Bike, title: "Ride In",   body: "Plentiful bike racks. Best way to skip traffic." },
+  { Icon: Bus,  title: "Rideshare", body: "Dedicated drop-off zone near the main entrance." },
 ];
 
 export default function Location() {
@@ -20,8 +29,8 @@ export default function Location() {
     <Section
       id="location"
       eyebrow="Find Us"
-      title="The Crown Festival Park, Sugar Land."
-      intro="One of Sugar Land's premier event venues — open fields, trails, and plenty of room to ride."
+      title="Two parks, one weekend."
+      intro="Both venues are side by side in Sugar Land — Crown Festival Park on Saturday, Sugar Land Memorial Park on Sunday."
       accent="forest"
     >
       <div className="grid gap-8 lg:grid-cols-5">
@@ -38,7 +47,6 @@ export default function Location() {
               title="Sugar Land Bike Fest venue map"
             />
           ) : (
-            /* Placeholder shown until embed src is added */
             <div className="absolute inset-0 bg-gradient-to-br from-forest to-forest-deep flex flex-col items-center justify-center text-center p-8">
               <div
                 className="absolute inset-0 opacity-20"
@@ -46,31 +54,58 @@ export default function Location() {
               />
               <MapPin size={48} className="relative text-golden mb-4" />
               <h3 className="relative font-display text-3xl font-semibold text-cream">Sugar Land, TX</h3>
-              <p className="relative mt-2 text-cream/70 max-w-sm text-sm">
-                Interactive map loading soon.
-              </p>
+              <p className="relative mt-2 text-cream/70 max-w-sm text-sm">Interactive map loading soon.</p>
             </div>
           )}
 
-          {/* Directions button overlaid on map */}
-          <a
-            href={DIRECTIONS_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur px-3 sm:px-4 py-2 text-xs sm:text-sm font-semibold text-forest-deep shadow-lg hover:bg-white transition min-h-[40px]"
-          >
-            <MapPin size={15} className="text-sunset" />
-            Get Directions
-            <ExternalLink size={13} className="text-ink/40" />
-          </a>
+          {/* Venue direction buttons overlaid on map */}
+          <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 flex flex-col gap-2">
+            {venues.map(({ day, name, directionsUrl }) => (
+              <a
+                key={name}
+                href={directionsUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur px-3 sm:px-4 py-2 text-xs font-semibold text-forest-deep shadow-lg hover:bg-white transition min-h-[36px]"
+              >
+                <MapPin size={13} className="text-sunset shrink-0" />
+                <span>{name}</span>
+                <span className="text-ink/40 font-normal hidden sm:inline">· {day}</span>
+                <ExternalLink size={11} className="text-ink/40 shrink-0" />
+              </a>
+            ))}
+          </div>
         </div>
 
-        {/* Travel tips */}
+        {/* Venue cards + travel tips */}
         <div className="lg:col-span-2 space-y-3">
+          {/* Per-day venue cards */}
+          {venues.map(({ day, name, directionsUrl }) => (
+            <a
+              key={name}
+              href={directionsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-start gap-4 rounded-2xl border border-ink/10 bg-white/60 backdrop-blur p-4 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/10 group"
+            >
+              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-forest text-cream shadow-md">
+                <Calendar size={18} />
+              </div>
+              <div className="min-w-0">
+                <p className="text-xs font-semibold uppercase tracking-wider text-ink/50">{day}</p>
+                <h4 className="font-semibold text-ink truncate">{name}</h4>
+                <p className="text-xs text-forest mt-0.5 flex items-center gap-1">
+                  Directions <ExternalLink size={10} />
+                </p>
+              </div>
+            </a>
+          ))}
+
+          {/* Travel tips */}
           {tips.map(({ Icon, title, body }) => (
             <div
               key={title}
-              className="flex items-start gap-4 rounded-2xl border border-ink/10 bg-white/60 backdrop-blur p-5 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/10"
+              className="flex items-start gap-4 rounded-2xl border border-ink/10 bg-white/60 backdrop-blur p-4 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/10"
             >
               <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-golden text-forest-deep shadow-md">
                 <Icon size={20} />
@@ -81,17 +116,6 @@ export default function Location() {
               </div>
             </div>
           ))}
-
-          <a
-            href={DIRECTIONS_URL}
-            target="_blank"
-            rel="noreferrer"
-            className="mt-2 flex items-center justify-center gap-2 w-full rounded-2xl border border-ink/10 bg-white/60 backdrop-blur p-4 text-sm font-semibold text-forest-deep hover:bg-white transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/10"
-          >
-            <MapPin size={16} className="text-sunset" />
-            Open in Google Maps
-            <ExternalLink size={14} className="text-ink/40" />
-          </a>
         </div>
       </div>
     </Section>
