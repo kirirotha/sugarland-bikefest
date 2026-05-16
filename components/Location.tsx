@@ -59,18 +59,18 @@ export default function Location() {
           )}
 
           {/* Venue direction buttons overlaid on map */}
-          <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 flex flex-col gap-2">
+          <div className="absolute bottom-3 left-3 sm:bottom-4 sm:left-4 flex flex-col gap-2 max-w-[calc(100%-1.5rem)]">
             {venues.map(({ day, name, directionsUrl }) => (
               <a
                 key={name}
                 href={directionsUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur px-3 sm:px-4 py-2 text-xs font-semibold text-forest-deep shadow-lg hover:bg-white transition min-h-[36px]"
+                className="inline-flex items-center gap-1.5 rounded-full bg-white/95 backdrop-blur px-3 sm:px-4 py-2 text-xs font-semibold text-forest-deep shadow-lg hover:bg-white transition min-h-[36px] overflow-hidden"
               >
                 <MapPin size={13} className="text-sunset shrink-0" />
-                <span>{name}</span>
-                <span className="text-ink/40 font-normal hidden sm:inline">· {day}</span>
+                <span className="truncate">{name}</span>
+                <span className="text-ink/40 font-normal hidden sm:inline shrink-0">· {day}</span>
                 <ExternalLink size={11} className="text-ink/40 shrink-0" />
               </a>
             ))}
