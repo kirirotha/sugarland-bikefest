@@ -93,7 +93,7 @@ export default function Location() {
               </div>
               <div className="min-w-0">
                 <p className="text-xs font-semibold uppercase tracking-wider text-ink/50">{day}</p>
-                <h4 className="font-semibold text-ink truncate">{name}</h4>
+                <h4 className="font-semibold text-ink">{name}</h4>
                 <p className="text-xs text-forest mt-0.5 flex items-center gap-1">
                   Directions <ExternalLink size={10} />
                 </p>
