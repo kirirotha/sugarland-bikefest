@@ -57,12 +57,12 @@ function MobileEventBlock({
       <button
         type="button"
         onClick={(e) => { e.stopPropagation(); onToggle(); }}
-        className={`h-full w-full text-left rounded-2xl border border-l-4 ${tagBorder[item.tag]} border-ink/10 bg-white/80 backdrop-blur px-2 py-2 flex items-start gap-2 overflow-hidden transition-all duration-200 ${open ? "bg-white shadow-lg shadow-forest/10" : ""}`}
+        className={`h-full w-full text-left rounded-lg border border-l-2 ${tagBorder[item.tag]} border-ink/10 bg-white/80 backdrop-blur px-1.5 py-1 flex items-start gap-1 overflow-hidden transition-all duration-200 ${open ? "bg-white shadow-lg shadow-forest/10" : ""}`}
       >
-        <div className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg ${tagChip[item.tag]} mt-0.5`}>
-          <Icon size={12} />
+        <div className={`grid h-5 w-5 shrink-0 place-items-center rounded-md ${tagChip[item.tag]} mt-0.5`}>
+          <Icon size={10} />
         </div>
-        <span className="font-semibold text-xs text-ink leading-snug line-clamp-2 break-words min-w-0">{item.title}</span>
+        <span className="font-semibold text-[10px] text-ink leading-snug line-clamp-5 break-words min-w-0">{item.title}</span>
       </button>
       <AnimatePresence>
         {open && (
@@ -127,9 +127,9 @@ function MobileSchedule({ day }: { day: ScheduleDay }) {
       ref={wrapRef}
       style={{
         display: "grid",
-        gridTemplateColumns: `3.5rem repeat(${trackCount}, 1fr)`,
+        gridTemplateColumns: `2rem repeat(${trackCount}, 1fr)`,
         gridTemplateRows: `repeat(${totalRows}, ${ROW_H}px)`,
-        columnGap: "8px",
+        columnGap: "4px",
       }}
     >
       {/* Time labels */}
@@ -137,12 +137,12 @@ function MobileSchedule({ day }: { day: ScheduleDay }) {
         <div
           key={min}
           style={{ gridColumn: 1, gridRow: i + 1, alignSelf: "start" }}
-          className="text-right pr-2 pt-1"
+          className="text-right pr-1 pt-1"
         >
-          <span className="font-display text-xs font-semibold text-golden tabular-nums leading-none">
+          <span className="font-display text-[9px] font-semibold text-golden tabular-nums leading-none">
             {formatMin(min).split(" ")[0]}
           </span>
-          <span className="block text-[9px] text-cream/50 uppercase tracking-wide leading-none mt-0.5">
+          <span className="block text-[7px] text-cream/50 uppercase tracking-wide leading-none mt-0.5">
             {formatMin(min).split(" ")[1]}
           </span>
         </div>
