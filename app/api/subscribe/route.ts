@@ -18,6 +18,25 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "Invalid email" }, { status: 400 });
   }
 
+  // Add to Brevo mailing list
+  try {
+    await fetch("https://api.brevo.com/v3/contacts", {
+      method: "POST",
+      headers: {
+        "api-key": process.env.BREVO_API_KEY ?? "",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        listIds: [2],
+        updateEnabled: true,
+      }),
+    });
+  } catch (err) {
+    console.error("[subscribe] brevo failed", err);
+  }
+
+  // Notify via email
   try {
     await resend.emails.send({
       from: "Sugar Land Bike Fest <hello@sugarlandbikefest.com>",
