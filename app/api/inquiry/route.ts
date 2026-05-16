@@ -3,17 +3,13 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const TO: Record<string, string> = {
-  sponsor: "sponsors@sugarlandbikefest.com",
-  volunteer: "hello@sugarlandbikefest.com",
-  subscribe: "hello@sugarlandbikefest.com",
-};
+const TO = "kirirotha@gmail.com";
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => ({}));
   const { source = "inquiry", name, email, interest, notes, message } = body;
 
-  const to = TO[source] ?? "hello@sugarlandbikefest.com";
+  const to = TO;
   const subject = source === "sponsor"
     ? `Sponsor inquiry from ${name}`
     : source === "volunteer"
