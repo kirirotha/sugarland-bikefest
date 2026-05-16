@@ -18,7 +18,7 @@ export default function Sponsors() {
       id="sponsors"
       eyebrow="Sponsors & Vendors"
       title="Put your brand on the start line."
-      intro="Reach thousands of cyclists, families, and outdoor enthusiasts across the Greater Houston region. Sponsorship dollars fund FBMBA trail and pump track improvements."
+      intro="Reach thousands of cyclists, families, and outdoor enthusiasts across the Greater Houston region. Sponsorship dollars fund FBMBA trail maintenance and improvements."
       accent="sunset"
     >
       <Reveal>
