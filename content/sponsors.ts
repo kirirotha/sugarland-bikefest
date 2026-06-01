@@ -61,15 +61,6 @@ export const tiers: Tier[] = [
     ],
   },
   {
-    name: "Bicycle Clubs",
-    price: "FREE",
-    perks: [
-      "We welcome bike clubs & teams of all types",
-      "Set up your tent in the designated area at no cost",
-    ],
-    note: "Unite cycling in Sugar Land — all clubs welcome!",
-  },
-  {
     name: "Bicycle Shops & Vendors",
     price: "$100",
     perks: [
@@ -88,6 +79,15 @@ export const tiers: Tier[] = [
       "Minimum donation: $150 in merchandise",
     ],
     note: "Partnerships & donations welcome — contact us for details.",
+  },
+  {
+    name: "Bicycle Clubs",
+    price: "FREE",
+    perks: [
+      "We welcome bike clubs & teams of all types",
+      "Set up your tent in the designated area at no cost",
+    ],
+    note: "Unite cycling in Sugar Land — all clubs welcome!",
   },
 ];
 
