@@ -3,34 +3,91 @@ export type Tier = {
   price: string;
   perks: string[];
   highlight?: boolean;
+  note?: string;
 };
 
 export const tiers: Tier[] = [
   {
     name: "Title Sponsor",
     price: "$2,500",
-    perks: ["Event naming rights", "Top logo on all materials", "Main-stage recognition", "6 VIP passes", "Prime booth in Vendor Village", "Social media spotlight", "Banner placement at finish line"],
+    perks: [
+      "Exclusive event naming rights",
+      "Vendor Booth in premium location",
+      "Social media mentions",
+      "Event shoutouts by announcers",
+      "Logo placement on event materials",
+      "Logo and clickable link on FBMBA website",
+      "Recognition as an FBMBA Black Diamond sponsor",
+    ],
     highlight: true,
   },
   {
-    name: "Race Sponsor",
+    name: "MTB Time Trial Sponsor",
     price: "$1,000",
-    perks: ["Logo on race bibs & signage", "Stage callout during awards", "4 VIP passes", "Vendor booth", "Website & social logo"],
+    perks: [
+      "Naming rights for MTB race",
+      "Vendor Booth at prominent location",
+      "Social media mentions",
+      "Event shoutouts by announcers",
+      "Logo placement on event materials",
+      "Logo and clickable link on FBMBA website",
+      "Recognition as an official FBMBA Blue Square sponsor",
+    ],
   },
   {
-    name: "Gold Sponsor",
+    name: "Pump Track Sponsor",
+    price: "$1,000",
+    perks: [
+      "Naming rights for Pump Track race",
+      "Vendor Booth at prominent location",
+      "Social media mentions",
+      "Event shoutouts by announcers",
+      "Logo placement on event materials",
+      "Logo and clickable link on FBMBA website",
+      "Recognition as an official FBMBA Blue Square sponsor",
+    ],
+  },
+  {
+    name: "Awards Sponsor",
     price: "$500",
-    perks: ["Logo on event website", "Signage at sponsored area", "2 VIP passes", "Social media mention"],
+    perks: [
+      "Recognition at awards ceremony",
+      "Booth at Vendor Village",
+      "Social media mentions",
+      "Event shoutouts by announcers",
+      "Logo placement on event materials",
+      "Logo and clickable link on FBMBA website",
+      "Recognition as an official FBMBA Green Circle sponsor",
+    ],
   },
   {
-    name: "Silver Sponsor",
+    name: "Bicycle Clubs",
+    price: "FREE",
+    perks: [
+      "We welcome bike clubs & teams of all types",
+      "Set up your tent in the designated area at no cost",
+    ],
+    note: "Unite cycling in Sugar Land — all clubs welcome!",
+  },
+  {
+    name: "Bicycle Shops & Vendors",
     price: "$100",
-    perks: ["Name on event website", "1 VIP pass", "Community recognition"],
+    perks: [
+      "Connect cyclists with local bike shops",
+      "Set up tent in designated area (both days)",
+    ],
+    note: "Flat fee covers the full weekend.",
   },
   {
-    name: "FBMBA Member",
-    price: "Discounted",
-    perks: ["Existing FBMBA sponsors receive discounted rates", "Contact us for your personalized package"],
+    name: "In-Kind Sponsorship",
+    price: "Contact Us",
+    perks: [
+      "Social media mentions",
+      "Event shoutouts by announcer",
+      "Logo and clickable link on FBMBA website",
+      "Minimum donation: $150 in merchandise",
+    ],
+    note: "Partnerships & donations welcome — contact us for details.",
   },
 ];
 

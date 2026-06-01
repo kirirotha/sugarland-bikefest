@@ -3,9 +3,9 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Check, Sparkles, CheckCircle2, ArrowLeft } from "lucide-react";
+import { Check, Sparkles, CheckCircle2, ArrowLeft, Info } from "lucide-react";
 import Modal from "./Modal";
-import { tiers } from "@/content/sponsors";
+import { tiers, type Tier } from "@/content/sponsors";
 
 const schema = z.object({
   name: z.string().min(2, "Tell us your name"),
@@ -16,6 +16,55 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 type Props = { open: boolean; onClose: () => void };
+
+function TierCard({ t, onSelect }: { t: Tier; onSelect: (name: string) => void }) {
+  return (
+    <div
+      className={`relative flex flex-col rounded-2xl p-4 border transition-all cursor-pointer group hover:-translate-y-1 hover:shadow-lg ${
+        t.highlight
+          ? "bg-gradient-to-br from-forest-deep to-forest text-cream border-transparent shadow-xl shadow-forest/30"
+          : "bg-white text-ink border-ink/10 shadow-sm"
+      }`}
+      onClick={() => onSelect(t.name)}
+    >
+      {t.highlight && (
+        <span className="absolute -top-3 left-5 inline-flex items-center gap-1 rounded-full bg-sunset px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white shadow-lg shadow-sunset/40">
+          <Sparkles size={11} /> Premier
+        </span>
+      )}
+      <h3 className={`font-display text-lg font-semibold ${t.highlight ? "text-cream" : "text-forest-deep"}`}>
+        {t.name}
+      </h3>
+      <p className={`mt-0.5 font-display text-2xl font-semibold ${t.highlight ? "text-golden" : "text-sunset"}`}>
+        {t.price}
+      </p>
+      <ul className={`mt-4 flex-1 space-y-2 text-sm ${t.highlight ? "text-cream/90" : "text-ink/75"}`}>
+        {t.perks.map((p) => (
+          <li key={p} className="flex items-start gap-2">
+            <Check size={14} className={`mt-0.5 shrink-0 ${t.highlight ? "text-golden" : "text-sunset"}`} />
+            {p}
+          </li>
+        ))}
+      </ul>
+      {t.note && (
+        <p className={`mt-3 flex items-start gap-1.5 text-xs ${t.highlight ? "text-cream/60" : "text-ink/50"}`}>
+          <Info size={12} className="mt-0.5 shrink-0" />
+          {t.note}
+        </p>
+      )}
+      <button
+        onClick={(e) => { e.stopPropagation(); onSelect(t.name); }}
+        className={`mt-4 w-full rounded-full py-2.5 text-sm font-semibold transition-all min-h-[44px] ${
+          t.highlight
+            ? "bg-sunset text-white hover:bg-sunset-deep shadow-md shadow-sunset/30"
+            : "bg-forest/10 text-forest-deep hover:bg-forest/20"
+        }`}
+      >
+        {t.price === "FREE" || t.price === "Contact Us" ? "Get in Touch" : "I'm Interested"}
+      </button>
+    </div>
+  );
+}
 
 export default function SponsorModal({ open, onClose }: Props) {
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
@@ -46,7 +95,7 @@ export default function SponsorModal({ open, onClose }: Props) {
       open={open}
       onClose={handleClose}
       title={selectedTier ? `${selectedTier} — Inquiry` : "Sponsorship Packages"}
-      subtitle={selectedTier ? "Fill out your details and we'll be in touch soon." : "All tiers include recognition on-site, online, and across our cycling community network."}
+      subtitle={selectedTier ? "Fill out your details and we'll be in touch soon." : "Reach thousands of cyclists, families, and outdoor enthusiasts across the Greater Houston region."}
       fadeIn
     >
       {submitted ? (
@@ -108,7 +157,7 @@ export default function SponsorModal({ open, onClose }: Props) {
           <div className="mx-4 sm:mx-6 mt-5 flex flex-col sm:flex-row sm:flex-wrap sm:items-center sm:justify-between gap-3 rounded-2xl border border-golden/40 bg-golden/10 px-4 py-3 text-sm text-ink/70">
             <div className="flex items-center gap-3">
               <Sparkles size={16} className="shrink-0 text-golden" />
-              <span>Packages being finalized — reach out early to lock in your tier.</span>
+              <span>Sponsorship dollars fund FBMBA trail maintenance and improvements.</span>
             </div>
             <button
               onClick={() => setSelectedTier("General Inquiry")}
@@ -118,43 +167,14 @@ export default function SponsorModal({ open, onClose }: Props) {
             </button>
           </div>
 
-          <div className="grid gap-4 p-4 sm:p-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+          <div className="grid gap-4 p-4 sm:p-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {tiers.map((t) => (
-              <div
-                key={t.name}
-                className={`relative flex flex-col rounded-2xl p-4 border transition-all ${
-                  t.highlight
-                    ? "bg-gradient-to-br from-forest-deep to-forest text-cream border-transparent shadow-xl shadow-forest/30"
-                    : "bg-white text-ink border-ink/10 shadow-sm"
-                }`}
-              >
-                {t.highlight && (
-                  <span className="absolute -top-3 left-5 inline-flex items-center gap-1 rounded-full bg-sunset px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white shadow-lg shadow-sunset/40">
-                    <Sparkles size={11} /> Best Value
-                  </span>
-                )}
-                <h3 className={`font-display text-lg font-semibold ${t.highlight ? "text-cream" : "text-forest-deep"}`}>
-                  {t.name}
-                </h3>
-                <div className="select-none blur-sm pointer-events-none">
-                  <p className={`mt-0.5 font-display text-2xl font-semibold ${t.highlight ? "text-golden" : "text-sunset"}`}>
-                    {t.price}
-                  </p>
-                  <ul className={`mt-4 flex-1 space-y-2 text-sm ${t.highlight ? "text-cream/90" : "text-ink/75"}`}>
-                    {t.perks.map((p) => (
-                      <li key={p} className="flex items-start gap-2">
-                        <Check size={14} className={`mt-0.5 shrink-0 ${t.highlight ? "text-golden" : "text-sunset"}`} />
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
+              <TierCard key={t.name} t={t} onSelect={setSelectedTier} />
             ))}
           </div>
 
           <div className="border-t border-ink/10 px-6 sm:px-8 py-5 text-sm text-ink/60">
-            Full details coming soon. Custom packages available — contact us to discuss a tailored sponsorship for your brand.
+            Custom packages available — contact us to discuss a tailored sponsorship for your brand.
           </div>
         </>
       )}
