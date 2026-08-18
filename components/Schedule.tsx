@@ -1,7 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Trophy, Bike, Baby, Store, Music, Sparkles } from "lucide-react";
+import { Trophy, Bike, Baby, Store, Music, Sparkles, ExternalLink } from "lucide-react";
 import Section from "./ui/Section";
 import { schedule, type ScheduleItem, type ScheduleDay } from "@/content/schedule";
 
@@ -28,7 +28,7 @@ const tagBorder: Record<ScheduleItem["tag"], string> = {
 
 const SLOT = 60;  // minutes per grid row
 const ROW_H = 44; // px per row
-const COL_COUNT = 3; // always render this many track columns
+const COL_COUNT = 4; // always render this many track columns
 
 function formatMin(min: number) {
   const h = Math.floor(min / 60) % 24;
@@ -85,6 +85,17 @@ function MobileEventBlock({
             </div>
             <p className="font-display font-semibold text-sm text-cream leading-snug">{item.title}</p>
             <p className="mt-1.5 text-xs text-cream/60 leading-relaxed">{item.blurb}</p>
+            {item.registerUrl && (
+              <a
+                href={item.registerUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-sunset px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-sunset-deep"
+              >
+                Register on BikeReg <ExternalLink size={11} />
+              </a>
+            )}
           </motion.div>
         )}
       </AnimatePresence>
@@ -204,12 +215,12 @@ function EventBlock({
     >
       {/* Event pill */}
       <div
-        className={`h-full rounded-2xl border border-l-4 ${tagBorder[item.tag]} border-ink/10 bg-white/80 backdrop-blur px-3 py-2 flex items-center gap-2 cursor-default transition-all duration-200 ${hovered ? "bg-white shadow-lg shadow-forest/10" : ""}`}
+        className={`h-full min-h-full rounded-2xl border border-l-4 ${tagBorder[item.tag]} border-ink/10 bg-white/80 backdrop-blur px-3 py-2 flex items-start gap-2 cursor-default transition-all duration-200 ${hovered ? "bg-white shadow-lg shadow-forest/10" : ""}`}
       >
         <div className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg ${tagChip[item.tag]}`}>
           <Icon size={12} />
         </div>
-        <span className="font-semibold text-sm text-ink leading-snug truncate">{item.title}</span>
+        <span className="font-semibold text-sm text-ink leading-snug break-words">{item.title}</span>
       </div>
 
       {/* Tooltip */}
@@ -234,6 +245,16 @@ function EventBlock({
             </div>
             <p className="font-display font-semibold text-sm text-cream leading-snug">{item.title}</p>
             <p className="mt-1.5 text-xs text-cream/60 leading-relaxed">{item.blurb}</p>
+            {item.registerUrl && (
+              <a
+                href={item.registerUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pointer-events-auto mt-3 inline-flex items-center gap-1.5 rounded-full bg-sunset px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-sunset-deep"
+              >
+                Register on BikeReg <ExternalLink size={11} />
+              </a>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

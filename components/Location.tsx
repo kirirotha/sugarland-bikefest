@@ -1,4 +1,8 @@
+"use client";
+import { useState } from "react";
+import Image from "next/image";
 import Section from "./ui/Section";
+import Modal from "./ui/Modal";
 import { MapPin, Car, Bike, Bus, ExternalLink, Calendar } from "lucide-react";
 
 // Shows both venues — Crown Festival Park (Sat) and Sugar Land Memorial Park (Sun)
@@ -19,12 +23,14 @@ const venues = [
 ];
 
 const tips = [
-  { Icon: Car,  title: "Parking",   body: "Free on-site parking with overflow at nearby lots." },
+  { Icon: Car,  title: "Parking",   body: "Free on-site parking with overflow at nearby lots.", image: "/images/parking-map.png" },
   { Icon: Bike, title: "Ride In",   body: "Plentiful bike racks. Best way to skip traffic." },
   { Icon: Bus,  title: "Rideshare", body: "Dedicated drop-off zone near the main entrance." },
 ];
 
 export default function Location() {
+  const [parkingOpen, setParkingOpen] = useState(false);
+
   return (
     <Section
       id="location"
@@ -102,22 +108,58 @@ export default function Location() {
           ))}
 
           {/* Travel tips */}
-          {tips.map(({ Icon, title, body }) => (
-            <div
-              key={title}
-              className="flex items-start gap-4 rounded-2xl border border-ink/10 bg-white/60 backdrop-blur p-4 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/10"
-            >
-              <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-golden text-forest-deep shadow-md">
-                <Icon size={20} />
+          {tips.map(({ Icon, title, body, image }) => {
+            const content = (
+              <>
+                <div className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-golden text-forest-deep shadow-md">
+                  <Icon size={20} />
+                </div>
+                <div className="min-w-0">
+                  <h4 className="font-semibold text-ink flex items-center gap-1.5">
+                    {title}
+                    {image && <ExternalLink size={12} className="text-ink/40" />}
+                  </h4>
+                  <p className="text-sm text-ink/65">{body}</p>
+                </div>
+              </>
+            );
+            return image ? (
+              <button
+                key={title}
+                type="button"
+                onClick={() => setParkingOpen(true)}
+                className="flex w-full items-start gap-4 rounded-2xl border border-ink/10 bg-white/60 backdrop-blur p-4 text-left transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/10 cursor-pointer"
+              >
+                {content}
+              </button>
+            ) : (
+              <div
+                key={title}
+                className="flex items-start gap-4 rounded-2xl border border-ink/10 bg-white/60 backdrop-blur p-4 transition hover:-translate-y-0.5 hover:shadow-lg hover:shadow-forest/10"
+              >
+                {content}
               </div>
-              <div>
-                <h4 className="font-semibold text-ink">{title}</h4>
-                <p className="text-sm text-ink/65">{body}</p>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
+
+      <Modal
+        open={parkingOpen}
+        onClose={() => setParkingOpen(false)}
+        title="Parking & Access"
+        subtitle="Pump Track and MTB parking directions"
+      >
+        <div className="p-4 sm:p-6 md:p-8">
+          <Image
+            src="/images/parking-map.png"
+            alt="Parking directions map for Sugar Land Bike Fest — Pump Track and MTB venues"
+            width={1200}
+            height={1200}
+            className="w-full h-auto rounded-xl border border-ink/10"
+          />
+        </div>
+      </Modal>
     </Section>
   );
 }

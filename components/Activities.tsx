@@ -1,3 +1,4 @@
+import { ExternalLink } from "lucide-react";
 import Section from "./ui/Section";
 import Reveal from "./ui/Reveal";
 import { activities } from "@/content/activities";
@@ -31,6 +32,16 @@ export default function Activities() {
               </div>
               <h3 className="font-display text-xl sm:text-2xl font-semibold text-forest-deep">{a.title}</h3>
               <p className="mt-2 text-sm sm:text-base text-ink/70 leading-relaxed">{a.blurb}</p>
+              {a.registerUrl && (
+                <a
+                  href={a.registerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative mt-4 inline-flex items-center gap-1.5 rounded-full bg-sunset px-4 py-2 text-xs sm:text-sm font-semibold text-white transition hover:bg-sunset-deep"
+                >
+                  Register on BikeReg <ExternalLink size={13} />
+                </a>
+              )}
             </div>
           </Reveal>
         ))}
