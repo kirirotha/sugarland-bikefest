@@ -9,7 +9,7 @@ export type Tier = {
 export const tiers: Tier[] = [
   {
     name: "Title Sponsor",
-    price: "$2,500",
+    price: "$2,500+",
     perks: [
       "Exclusive event naming rights",
       "Vendor Booth in premium location",
@@ -23,7 +23,7 @@ export const tiers: Tier[] = [
   },
   {
     name: "MTB Time Trial Sponsor",
-    price: "$1,000",
+    price: "$1,000 – $2,499",
     perks: [
       "Naming rights for MTB race",
       "Vendor Booth at prominent location",
@@ -36,7 +36,7 @@ export const tiers: Tier[] = [
   },
   {
     name: "Pump Track Sponsor",
-    price: "$1,000",
+    price: "$1,000 – $2,499",
     perks: [
       "Naming rights for Pump Track race",
       "Vendor Booth at prominent location",
@@ -49,7 +49,7 @@ export const tiers: Tier[] = [
   },
   {
     name: "Awards Sponsor",
-    price: "$500",
+    price: "$500 – $999",
     perks: [
       "Recognition at awards ceremony",
       "Booth at Vendor Village",

@@ -5,5 +5,5 @@ export const faq = [
   { q: "What if it rains?", a: "The festival runs rain or shine. Race events may be paused for lightning. Watch our socials for day-of updates." },
   { q: "Is parking available?", a: "Yes, free parking at the park with overflow nearby. Bike racks will be plentiful — we encourage riding in." },
   { q: "Can I bring my dog?", a: "Leashed, well-behaved dogs are welcome in the Vendor Village. Not allowed in active race areas." },
-  { q: "How do I become a sponsor or vendor?", a: "Use the inquiry form below or email sponsors@sugarlandbikefest.com ." },
+  { q: "How do I become a sponsor?", a: "We offer several sponsorship tiers — from free Bicycle Club participation up to Title Sponsor ($2,500+), plus MTB Time Trial, Pump Track, Awards, Bicycle Shop & Vendor, and In-Kind options. Click \"Become a Sponsor\" above to view the full package and perks, or email sponsors@sugarlandbikefest.com." },
 ];

@@ -60,7 +60,7 @@ export default function Footer() {
             <a aria-label="Facebook" href="#" className="grid h-11 w-11 place-items-center rounded-full border border-cream/20 hover:bg-sunset hover:border-sunset transition min-h-[44px] min-w-[44px]">
               <FbIcon size={16} />
             </a>
-            <a aria-label="Email" href="mailto:hello@sugarlandbikefest.com" className="grid h-11 w-11 place-items-center rounded-full border border-cream/20 hover:bg-sunset hover:border-sunset transition min-h-[44px] min-w-[44px]">
+            <a aria-label="Email" href="mailto:info@sugarlandbikefest.com" className="grid h-11 w-11 place-items-center rounded-full border border-cream/20 hover:bg-sunset hover:border-sunset transition min-h-[44px] min-w-[44px]">
               <Mail size={16} />
             </a>
           </div>

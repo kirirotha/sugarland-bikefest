@@ -13,7 +13,7 @@ export default function FAQ() {
       id="faq"
       eyebrow="FAQ"
       title="Good questions."
-      intro="Don't see yours? Reach out to questions@sugarlandbikefest.com."
+      intro="Don't see yours? Reach out to info@sugarlandbikefest.com."
       accent="golden"
     >
       <ul className="space-y-3">

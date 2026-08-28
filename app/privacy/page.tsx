@@ -38,8 +38,8 @@ export default function PrivacyPage() {
             </p>
             <p>
               Questions about this policy can be directed to:{" "}
-              <a href="mailto:hello@sugarlandbikefest.com" className="text-sunset hover:underline underline-offset-2">
-                hello@sugarlandbikefest.com
+              <a href="mailto:info@sugarlandbikefest.com" className="text-sunset hover:underline underline-offset-2">
+                info@sugarlandbikefest.com
               </a>
             </p>
           </Section>
@@ -67,8 +67,8 @@ export default function PrivacyPage() {
           <Section title="Email Communications">
             <p>
               If you subscribe to our mailing list, you can unsubscribe at any time by clicking the unsubscribe link in any email we send, or by emailing us at{" "}
-              <a href="mailto:hello@sugarlandbikefest.com" className="text-sunset hover:underline underline-offset-2">
-                hello@sugarlandbikefest.com
+              <a href="mailto:info@sugarlandbikefest.com" className="text-sunset hover:underline underline-offset-2">
+                info@sugarlandbikefest.com
               </a>{" "}
               with the subject "Unsubscribe."
             </p>
@@ -108,8 +108,8 @@ export default function PrivacyPage() {
             </ul>
             <p>
               Email us at{" "}
-              <a href="mailto:hello@sugarlandbikefest.com" className="text-sunset hover:underline underline-offset-2">
-                hello@sugarlandbikefest.com
+              <a href="mailto:info@sugarlandbikefest.com" className="text-sunset hover:underline underline-offset-2">
+                info@sugarlandbikefest.com
               </a>{" "}
               and we will respond within 30 days.
             </p>
