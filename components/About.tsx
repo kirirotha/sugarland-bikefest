@@ -6,7 +6,7 @@ const tiles = [
   { Icon: Bike, title: "Race", body: "MTB time trial, pump track brackets, and more across two days." },
   { Icon: Sun, title: "Ride", body: "Group rides for road, gravel, BMX, urban — all and every pace in between." },
   { Icon: Users, title: "Community", body: "Local cycling clubs, shops, and sponsors gathered in one Vendor Village." },
-  { Icon: Heart, title: "Family", body: "Kids Zone, beginner clinics, food trucks, and music all weekend." },
+  { Icon: Heart, title: "Family", body: "Kids Zone, food trucks, and music all weekend." },
 ];
 
 export default function About() {

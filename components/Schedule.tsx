@@ -28,7 +28,7 @@ const tagBorder: Record<ScheduleItem["tag"], string> = {
 
 const SLOT = 60;  // minutes per grid row
 const ROW_H = 44; // px per row
-const COL_COUNT = 4; // always render this many track columns
+const COL_COUNT = 5; // always render this many track columns
 
 function formatMin(min: number) {
   const h = Math.floor(min / 60) % 24;
