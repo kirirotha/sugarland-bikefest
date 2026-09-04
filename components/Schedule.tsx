@@ -143,11 +143,12 @@ function MobileSchedule({ day }: { day: ScheduleDay }) {
   }
 
   return (
+    <div className="overflow-x-auto -mx-3 px-3 pb-1">
     <div
       ref={wrapRef}
       style={{
         display: "grid",
-        gridTemplateColumns: `2rem repeat(${trackCount}, 1fr)`,
+        gridTemplateColumns: `2rem repeat(${trackCount}, minmax(4.75rem, 1fr))`,
         gridTemplateRows: `repeat(${totalRows}, ${ROW_H}px)`,
         columnGap: "4px",
       }}
@@ -200,6 +201,7 @@ function MobileSchedule({ day }: { day: ScheduleDay }) {
           />
         );
       })}
+    </div>
     </div>
   );
 }
