@@ -351,7 +351,7 @@ export default function Schedule() {
       id="schedule"
       eyebrow="Schedule"
       title="Three days, one big party."
-      intro="Events are subject to change. More activities coming soon!"
+      intro="Events are subject to change."
       accent="golden"
     >
       {/* Day tabs */}

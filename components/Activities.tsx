@@ -32,6 +32,9 @@ export default function Activities() {
               </div>
               <h3 className="font-display text-xl sm:text-2xl font-semibold text-forest-deep">{a.title}</h3>
               <p className="mt-2 text-sm sm:text-base text-ink/70 leading-relaxed">{a.blurb}</p>
+              {a.sponsoredBy && (
+                <p className="mt-1.5 text-xs font-medium uppercase tracking-wide text-ink/45">{a.sponsoredBy}</p>
+              )}
               {a.registerUrl && (
                 <a
                   href={a.registerUrl}

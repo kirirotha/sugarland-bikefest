@@ -143,7 +143,7 @@ export default function TiltPanel({
         onMouseMove={onMouseMove}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        style={{ rotateX, rotateY }}
         className={`relative rounded-3xl transition-shadow duration-300 ${
           hovered
             ? "shadow-2xl shadow-black/40"
@@ -164,7 +164,7 @@ export default function TiltPanel({
         </div>
 
         {/* Content */}
-        <div className="relative" style={{ transform: "translateZ(12px)" }}>
+        <div className="relative">
           {children}
         </div>
       </motion.div>
