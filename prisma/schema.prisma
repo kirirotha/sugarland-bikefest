@@ -1,0 +1,61 @@
+// Sugar Land Bike Fest — database schema
+// Currently just the liability waiver record. Add future models here.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Connection URL lives in prisma.config.ts (Prisma 7+) — see lib/prisma.ts
+// for the runtime client, which is constructed with a driver adapter.
+datasource db {
+  provider = "postgresql"
+}
+
+model Waiver {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+
+  // Which event this waiver covers — lets the same schema serve future years.
+  eventLabel String @default("Sugar Land Bike Fest — Oct 24-25, 2026")
+
+  // Participant (the rider)
+  participantName  String
+  participantEmail String
+  participantPhone String
+  dob              DateTime
+
+  // True when participant is under 18 as of the event date. Guardian fields
+  // below are required (enforced in the API route) whenever this is true.
+  isMinor Boolean
+
+  guardianName  String?
+  guardianEmail String?
+  guardianPhone String?
+
+  emergencyContactName  String
+  emergencyContactPhone String
+
+  // The name typed into the signature field, and who typed it
+  // ("participant" or "guardian").
+  signatureName String
+  signedBy      String
+
+  agreedToTerms Boolean
+
+  // Snapshot of what was actually agreed to, so a later edit to the waiver
+  // copy never rewrites history for someone who already signed.
+  waiverVersion String
+  waiverText    String @db.Text
+
+  // Evidentiary trail
+  ipAddress String?
+  userAgent String?
+
+  // Short code printed on the confirmation email / screen for fast lookup
+  // at day-of check-in (e.g. last 8 chars of id, uppercased).
+  confirmationCode String @unique
+
+  @@index([participantName])
+  @@index([participantEmail])
+  @@index([confirmationCode])
+}

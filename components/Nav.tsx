@@ -14,6 +14,7 @@ const links = [
   { href: "#volunteer", label: "Volunteer" },
   { href: "#location", label: "Location" },
   { href: "#faq", label: "FAQ" },
+  { href: "/waiver", label: "Sign Waiver" },
 ];
 
 export default function Nav() {
