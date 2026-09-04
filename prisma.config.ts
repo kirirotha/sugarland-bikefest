@@ -14,9 +14,17 @@ loadEnv({ path: ".env.local", quiet: true });
 // This Neon database is shared with an unrelated app (its "public" schema
 // already holds User/SiteContent/AuditLog tables) — see lib/db-url.ts.
 // Everything Prisma-managed here lives in its own "waivers" schema instead.
+//
+// `prisma generate` (unlike `migrate`/`studio`) doesn't need a live DB
+// connection — just the schema — so don't hard-crash config loading (and
+// therefore `npm install`'s postinstall step) when DATABASE_URL isn't set
+// yet, e.g. a fresh clone before `.env.local` exists, or a CI/build step
+// that only needs the generated client.
+const databaseUrl = process.env.DATABASE_URL;
+
 export default defineConfig({
   schema: "prisma/schema.prisma",
   datasource: {
-    url: withWaiverSchema(process.env.DATABASE_URL!),
+    url: databaseUrl ? withWaiverSchema(databaseUrl) : undefined,
   },
 });
