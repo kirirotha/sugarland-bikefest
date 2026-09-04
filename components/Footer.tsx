@@ -27,6 +27,7 @@ export default function Footer() {
               <li><a href="#schedule" className="hover:text-sunset transition">Schedule</a></li>
               <li><a href="#activities" className="hover:text-sunset transition">Activities</a></li>
               <li><a href="#location" className="hover:text-sunset transition">Location</a></li>
+              <li><Link href="/waiver" className="hover:text-sunset transition">Sign Waiver</Link></li>
             </ul>
           </div>
 

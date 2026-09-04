@@ -1,7 +1,5 @@
 import { NextResponse } from "next/server";
-import { Resend } from "resend";
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+import { getResend } from "@/lib/resend";
 
 export async function POST(req: Request) {
   const contentType = req.headers.get("content-type") || "";
@@ -38,7 +36,7 @@ export async function POST(req: Request) {
 
   // Notify via email
   try {
-    await resend.emails.send({
+    await getResend().emails.send({
       from: "Sugar Land Bike Fest <hello@sugarlandbikefest.com>",
       to: "kirirotha@gmail.com",
       replyTo: email,

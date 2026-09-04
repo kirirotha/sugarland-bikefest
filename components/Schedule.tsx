@@ -86,15 +86,24 @@ function MobileEventBlock({
             <p className="font-display font-semibold text-sm text-cream leading-snug">{item.title}</p>
             <p className="mt-1.5 text-xs text-cream/60 leading-relaxed">{item.blurb}</p>
             {item.registerUrl && (
-              <a
-                href={item.registerUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={(e) => e.stopPropagation()}
-                className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-sunset px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-sunset-deep"
-              >
-                Register on BikeReg <ExternalLink size={11} />
-              </a>
+              <div className="mt-3 flex flex-wrap items-center gap-2">
+                <a
+                  href={item.registerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-sunset px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-sunset-deep"
+                >
+                  Register on BikeReg <ExternalLink size={11} />
+                </a>
+                <a
+                  href="/waiver"
+                  onClick={(e) => e.stopPropagation()}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-golden/50 px-3 py-1.5 text-[11px] font-semibold text-golden transition hover:bg-golden/10"
+                >
+                  Sign Waiver
+                </a>
+              </div>
             )}
           </motion.div>
         )}
@@ -246,14 +255,22 @@ function EventBlock({
             <p className="font-display font-semibold text-sm text-cream leading-snug">{item.title}</p>
             <p className="mt-1.5 text-xs text-cream/60 leading-relaxed">{item.blurb}</p>
             {item.registerUrl && (
-              <a
-                href={item.registerUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="pointer-events-auto mt-3 inline-flex items-center gap-1.5 rounded-full bg-sunset px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-sunset-deep"
-              >
-                Register on BikeReg <ExternalLink size={11} />
-              </a>
+              <div className="pointer-events-auto mt-3 flex flex-wrap items-center gap-2">
+                <a
+                  href={item.registerUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 rounded-full bg-sunset px-3 py-1.5 text-[11px] font-semibold text-white transition hover:bg-sunset-deep"
+                >
+                  Register on BikeReg <ExternalLink size={11} />
+                </a>
+                <a
+                  href="/waiver"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-golden/50 px-3 py-1.5 text-[11px] font-semibold text-golden transition hover:bg-golden/10"
+                >
+                  Sign Waiver
+                </a>
+              </div>
             )}
           </motion.div>
         )}
