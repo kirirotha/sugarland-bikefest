@@ -10,7 +10,7 @@ function subscribeMobile(cb: () => void) {
 }
 const getIsMobile = () =>
   typeof window !== "undefined" && window.matchMedia("(max-width: 767px)").matches;
-import { ArrowRight, ChevronDown } from "lucide-react";
+import { ArrowRight, ChevronDown, ExternalLink } from "lucide-react";
 import Image from "next/image";
 import Countdown from "./Countdown";
 import SubscribeModal from "./ui/SubscribeModal";
@@ -143,6 +143,14 @@ export default function Hero() {
             </div>
 
             <div className="mt-4 flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
+              <a
+                href="https://www.bikereg.com/76731"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-sunset px-6 sm:px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-sunset/30 hover:bg-sunset-deep transition-all hover:-translate-y-0.5 min-h-[44px]"
+              >
+                Register to Race <ExternalLink size={16} />
+              </a>
               <button
                 onClick={() => setSubscribeOpen(true)}
                 className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 sm:px-7 py-3.5 text-sm font-semibold text-sunset-deep shadow-lg shadow-black/20 hover:bg-cream transition-all hover:-translate-y-0.5 min-h-[44px]"
