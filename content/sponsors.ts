@@ -133,6 +133,7 @@ export const eventSponsorLogos: SponsorLogo[] = [
   { name: "bikr", logoSrc: "/images/EventSponsorLogos/bikr-heart.png", banner: true },
   { name: "La Mestiza", logoSrc: "/images/EventSponsorLogos/la-mestiza.png", square: true },
   { name: "Sugar Cycles", logoSrc: "/images/EventSponsorLogos/sugar-cycles.png", square: true },
+  { name: "Lone Star Cycles", logoSrc: "/images/EventSponsorLogos/lone-star-cycles-logo.png", square: true },
   { name: "Ninja", logoSrc: "/images/EventSponsorLogos/ninja.png", banner: true },
   { name: "Race Station", logoSrc: "/images/EventSponsorLogos/race-station.png", banner: true },
   { name: "Saint Arnold Brewing Co.", logoSrc: "/images/EventSponsorLogos/saint-arnold.png", topBanner: true },
