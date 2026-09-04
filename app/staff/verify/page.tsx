@@ -1,6 +1,8 @@
 "use client";
 import { useState } from "react";
-import { Search, CheckCircle2, Download } from "lucide-react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { Search, CheckCircle2, Download, LogOut, ArrowLeft } from "lucide-react";
 import { formatDateOnly } from "@/lib/waiver";
 
 type Result = {
@@ -15,10 +17,21 @@ type Result = {
 };
 
 export default function StaffVerifyPage() {
+  const router = useRouter();
   const [q, setQ] = useState("");
   const [results, setResults] = useState<Result[]>([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    setLoggingOut(true);
+    try {
+      await fetch("/api/staff/logout", { method: "POST" });
+    } catch { /* clear locally regardless */ }
+    router.push("/staff/login");
+    router.refresh();
+  };
 
   const runSearch = async (value: string) => {
     setQ(value);
@@ -41,6 +54,13 @@ export default function StaffVerifyPage() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 sm:px-6 pt-32 pb-24">
+      <Link
+        href="/"
+        className="inline-flex items-center gap-1.5 text-sm text-cream/60 hover:text-golden transition mb-6"
+      >
+        <ArrowLeft size={14} /> Back to site
+      </Link>
+
       <div className="mb-8 flex items-center justify-between flex-wrap gap-4">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-golden mb-2">Staff</p>
@@ -48,12 +68,21 @@ export default function StaffVerifyPage() {
             Waiver Check-In
           </h1>
         </div>
-        <a
-          href="/api/staff/export"
-          className="inline-flex items-center gap-2 rounded-full bg-forest px-5 py-2.5 text-sm font-semibold text-cream hover:bg-forest-deep transition"
-        >
-          <Download size={16} /> Export CSV
-        </a>
+        <div className="flex items-center gap-2">
+          <a
+            href="/api/staff/export"
+            className="inline-flex items-center gap-2 rounded-full bg-forest px-5 py-2.5 text-sm font-semibold text-cream hover:bg-forest-deep transition"
+          >
+            <Download size={16} /> Export CSV
+          </a>
+          <button
+            onClick={handleLogout}
+            disabled={loggingOut}
+            className="inline-flex items-center gap-2 rounded-full border border-cream/20 px-5 py-2.5 text-sm font-semibold text-cream/80 hover:bg-cream/10 hover:text-cream transition disabled:opacity-50"
+          >
+            <LogOut size={16} /> {loggingOut ? "Logging out…" : "Log Out"}
+          </button>
+        </div>
       </div>
 
       <div className="relative mb-6">

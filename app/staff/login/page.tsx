@@ -1,7 +1,8 @@
 "use client";
 import { useState, Suspense } from "react";
+import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Lock } from "lucide-react";
+import { Lock, ArrowLeft } from "lucide-react";
 
 function StaffLoginForm() {
   const router = useRouter();
@@ -38,6 +39,13 @@ function StaffLoginForm() {
 
   return (
     <div className="mx-auto max-w-sm px-4 pt-32 pb-24">
+      <Link
+        href="/"
+        className="inline-flex items-center gap-1.5 text-sm text-cream/60 hover:text-golden transition mb-6"
+      >
+        <ArrowLeft size={14} /> Back to site
+      </Link>
+
       <div className="rounded-2xl border border-cream/10 bg-ink/40 backdrop-blur-md p-6 sm:p-8">
         <div className="flex items-center gap-2 mb-4">
           <Lock size={18} className="text-golden" />
