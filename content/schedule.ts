@@ -10,6 +10,8 @@ export type ScheduleItem = {
   track: number;
   /** BikeReg (or other) registration link, shown for races that require sign-up */
   registerUrl?: string;
+  /** small credit line, e.g. naming/race sponsor */
+  sponsoredBy?: string;
 };
 
 export type ScheduleDay = {
@@ -46,7 +48,7 @@ export const schedule: ScheduleDay[] = [
     date: "Oct 25, 2026",
     displayEndMin: 17 * 60, // 5:00 PM
     items: [
-      { time: "8:00 AM", startMin: 480, durationMin: 300, title: "Brindley MTB Time Trial", blurb: "FBMBA's flagship mountain bike time trial on the Brindley MTB trail - bonus style points for costumes.", tag: "race", track: 0, registerUrl: "https://www.bikereg.com/76731" },
+      { time: "8:00 AM", startMin: 480, durationMin: 300, title: "Brindley MTB Time Trial", blurb: "FBMBA's flagship mountain bike time trial on the Brindley MTB trail - bonus style points for costumes.", tag: "race", track: 0, registerUrl: "https://www.bikereg.com/76731", sponsoredBy: "Supported by The Janos Family" },
       { time: "8:00 AM", startMin: 480, durationMin: 420, title: "Community Bike Swap Meet", blurb: "Buy, sell, and trade bikes and gear with fellow riders.", tag: "village", track: 1 },
       { time: "8:00 AM", startMin: 480, durationMin: 420, title: "Vendor Village", blurb: "Local shops, brands, and food at Sugar Land Memorial Park Pavilion.", tag: "village", track: 2 },
     ],

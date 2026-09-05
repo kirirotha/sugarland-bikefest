@@ -85,6 +85,9 @@ function MobileEventBlock({
             </div>
             <p className="font-display font-semibold text-sm text-cream leading-snug">{item.title}</p>
             <p className="mt-1.5 text-xs text-cream/60 leading-relaxed">{item.blurb}</p>
+            {item.sponsoredBy && (
+              <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-golden/70">{item.sponsoredBy}</p>
+            )}
             {item.registerUrl && (
               <div className="mt-3 flex flex-wrap items-center gap-2">
                 <a
@@ -256,6 +259,9 @@ function EventBlock({
             </div>
             <p className="font-display font-semibold text-sm text-cream leading-snug">{item.title}</p>
             <p className="mt-1.5 text-xs text-cream/60 leading-relaxed">{item.blurb}</p>
+            {item.sponsoredBy && (
+              <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-golden/70">{item.sponsoredBy}</p>
+            )}
             {item.registerUrl && (
               <div className="pointer-events-auto mt-3 flex flex-wrap items-center gap-2">
                 <a

@@ -4,6 +4,10 @@ export type Tier = {
   perks: string[];
   highlight?: boolean;
   note?: string;
+  /** opens the Zelle donation modal instead of the sponsor inquiry form */
+  donation?: boolean;
+  /** this tier is already filled — show a "claimed" overlay instead of an inquiry CTA */
+  claimedBy?: string;
 };
 
 export const tiers: Tier[] = [
@@ -33,6 +37,7 @@ export const tiers: Tier[] = [
       "Logo and clickable link on FBMBA website",
       "Recognition as an official FBMBA Blue Square sponsor",
     ],
+    claimedBy: "The Janos Family",
   },
   {
     name: "Pump Track Sponsor",
@@ -88,6 +93,16 @@ export const tiers: Tier[] = [
       "Set up your tent in the designated area at no cost",
     ],
     note: "Unite cycling in Sugar Land — all clubs welcome!",
+  },
+  {
+    name: "Community Supporter",
+    price: "Any Amount",
+    perks: [
+      "No business or sponsorship required — open to individuals, families & riders",
+      "Every contribution helps FBMBA put on Bike Fest",
+      "Supports a stronger cycling community in Fort Bend",
+    ],
+    donation: true,
   },
 ];
 

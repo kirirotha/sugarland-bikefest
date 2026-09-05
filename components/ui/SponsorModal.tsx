@@ -5,6 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Check, Sparkles, CheckCircle2, ArrowLeft, Info } from "lucide-react";
 import Modal from "./Modal";
+import DonateModal from "./DonateModal";
 import { tiers, type Tier } from "@/content/sponsors";
 
 const schema = z.object({
@@ -17,19 +18,27 @@ type FormData = z.infer<typeof schema>;
 
 type Props = { open: boolean; onClose: () => void };
 
-function TierCard({ t, onSelect }: { t: Tier; onSelect: (name: string) => void }) {
+function TierCard({ t, onSelect }: { t: Tier; onSelect: (t: Tier) => void }) {
+  const claimed = !!t.claimedBy;
   return (
     <div
-      className={`relative flex flex-col rounded-2xl p-4 border transition-all cursor-pointer group hover:-translate-y-1 hover:shadow-lg ${
+      className={`relative flex flex-col rounded-2xl p-4 border transition-all group ${
+        claimed ? "cursor-default" : "cursor-pointer hover:-translate-y-1 hover:shadow-lg"
+      } ${
         t.highlight
           ? "bg-gradient-to-br from-forest-deep to-forest text-cream border-transparent shadow-xl shadow-forest/30"
           : "bg-white text-ink border-ink/10 shadow-sm"
       }`}
-      onClick={() => onSelect(t.name)}
+      onClick={() => { if (!claimed) onSelect(t); }}
     >
       {t.highlight && (
         <span className="absolute -top-3 left-5 inline-flex items-center gap-1 rounded-full bg-sunset px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white shadow-lg shadow-sunset/40">
           <Sparkles size={11} /> Premier
+        </span>
+      )}
+      {claimed && (
+        <span className="absolute -top-3 right-5 inline-flex items-center gap-1 rounded-full bg-forest px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-white shadow-lg shadow-forest/40">
+          <Check size={11} /> Sponsored
         </span>
       )}
       <h3 className={`font-display text-lg font-semibold ${t.highlight ? "text-cream" : "text-forest-deep"}`}>
@@ -38,7 +47,12 @@ function TierCard({ t, onSelect }: { t: Tier; onSelect: (name: string) => void }
       <p className={`mt-0.5 font-display text-2xl font-semibold ${t.highlight ? "text-golden" : "text-sunset"}`}>
         {t.price}
       </p>
-      <ul className={`mt-4 flex-1 space-y-2 text-sm ${t.highlight ? "text-cream/90" : "text-ink/75"}`}>
+      {claimed && (
+        <p className="mt-2 inline-flex w-fit items-center gap-1.5 rounded-full bg-forest/10 px-3 py-1 text-xs font-semibold text-forest-deep">
+          Sponsored by {t.claimedBy}
+        </p>
+      )}
+      <ul className={`mt-4 flex-1 space-y-2 text-sm ${t.highlight ? "text-cream/90" : "text-ink/75"} ${claimed ? "opacity-70" : ""}`}>
         {t.perks.map((p) => (
           <li key={p} className="flex items-start gap-2">
             <Check size={14} className={`mt-0.5 shrink-0 ${t.highlight ? "text-golden" : "text-sunset"}`} />
@@ -53,14 +67,23 @@ function TierCard({ t, onSelect }: { t: Tier; onSelect: (name: string) => void }
         </p>
       )}
       <button
-        onClick={(e) => { e.stopPropagation(); onSelect(t.name); }}
+        onClick={(e) => { e.stopPropagation(); if (!claimed) onSelect(t); }}
+        disabled={claimed}
         className={`mt-4 w-full rounded-full py-2.5 text-sm font-semibold transition-all min-h-[44px] ${
-          t.highlight
+          claimed
+            ? "bg-forest/10 text-forest-deep/60 cursor-default"
+            : t.highlight
             ? "bg-sunset text-white hover:bg-sunset-deep shadow-md shadow-sunset/30"
             : "bg-forest/10 text-forest-deep hover:bg-forest/20"
         }`}
       >
-        {t.price === "FREE" || t.price === "Contact Us" ? "Get in Touch" : "I'm Interested"}
+        {claimed
+          ? "Thank You to Our Sponsor"
+          : t.donation
+          ? "Support Bike Fest"
+          : t.price === "FREE" || t.price === "Contact Us"
+          ? "Get in Touch"
+          : "I'm Interested"}
       </button>
     </div>
   );
@@ -69,6 +92,7 @@ function TierCard({ t, onSelect }: { t: Tier; onSelect: (name: string) => void }
 export default function SponsorModal({ open, onClose }: Props) {
   const [selectedTier, setSelectedTier] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [donateOpen, setDonateOpen] = useState(false);
 
   const { register, handleSubmit, reset, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -88,6 +112,14 @@ export default function SponsorModal({ open, onClose }: Props) {
   const handleClose = () => {
     onClose();
     setTimeout(() => { setSelectedTier(null); setSubmitted(false); reset(); }, 400);
+  };
+
+  const handleTierSelect = (t: Tier) => {
+    if (t.donation) {
+      setDonateOpen(true);
+    } else {
+      setSelectedTier(t.name);
+    }
   };
 
   return (
@@ -169,7 +201,7 @@ export default function SponsorModal({ open, onClose }: Props) {
 
           <div className="grid gap-4 p-4 sm:p-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {tiers.map((t) => (
-              <TierCard key={t.name} t={t} onSelect={setSelectedTier} />
+              <TierCard key={t.name} t={t} onSelect={handleTierSelect} />
             ))}
           </div>
 
@@ -178,6 +210,8 @@ export default function SponsorModal({ open, onClose }: Props) {
           </div>
         </>
       )}
+
+      <DonateModal open={donateOpen} onClose={() => setDonateOpen(false)} />
     </Modal>
   );
 }
