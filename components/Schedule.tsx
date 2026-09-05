@@ -368,7 +368,7 @@ function DesktopSchedule({ day }: { day: ScheduleDay }) {
 }
 
 export default function Schedule() {
-  const [tab, setTab] = useState(0);
+  const [tab, setTab] = useState(1); // default to Saturday
   const day = schedule[tab];
 
   return (
