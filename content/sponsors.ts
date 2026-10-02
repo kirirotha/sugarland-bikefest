@@ -142,7 +142,6 @@ export const sponsorLogos: SponsorLogo[] = [
 // NOTE: display names below are best-guess reads of the filenames — please confirm/correct
 // the official business names before this goes live.
 export const eventSponsorLogos: SponsorLogo[] = [
-  { name: "RAD AF", logoSrc: "/images/EventSponsorLogos/radaf.png", square: true },
   { name: "SL Ice", logoSrc: "/images/EventSponsorLogos/sl-ice.png", square: true },
   { name: "Sugar Land Space Cowboys", logoSrc: "/images/EventSponsorLogos/sl-space-cowboys.png", square: true },
   { name: "bikr", logoSrc: "/images/EventSponsorLogos/bikr-heart.png", banner: true },
