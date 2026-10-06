@@ -22,13 +22,13 @@ const SITE_URL = "https://sugarlandbikefest.com";
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: "Sugar Land Bike Fest — Oct 24–25, 2026",
+    default: "Sugar Land Bike Fest — Oct 23–25, 2026",
     template: "%s · Sugar Land Bike Fest",
   },
   description:
     "A community cycling festival in Sugar Land, TX. MTB time trial, pump track racing, group rides, vendors, food trucks, and kids zone — built around FBMBA's race weekend.",
   openGraph: {
-    title: "Sugar Land Bike Fest — Oct 24–25, 2026",
+    title: "Sugar Land Bike Fest — Oct 23–25, 2026",
     description:
       "Ride. Celebrate. Sugar Land. A two-day community cycling festival hosted by FBMBA.",
     url: SITE_URL,
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Sugar Land Bike Fest",
-    description: "Ride. Celebrate. Sugar Land. Oct 24–25, 2026.",
+    description: "Ride. Celebrate. Sugar Land. Oct 23–25, 2026.",
   },
 };
 

@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { readFileSync } from "fs";
 import { join } from "path";
 
-export const alt = "Sugar Land Bike Fest — Oct 24–25, 2026";
+export const alt = "Sugar Land Bike Fest — Oct 23–25, 2026";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -45,7 +45,7 @@ export default function Image() {
             margin: 0,
           }}
         >
-          Oct 24–25, 2026 · Sugar Land, TX
+          Oct 23–25, 2026 · Sugar Land, TX
         </p>
       </div>
     ),

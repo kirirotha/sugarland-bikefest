@@ -26,8 +26,9 @@ const tagBorder: Record<ScheduleItem["tag"], string> = {
   social:   "border-l-golden/60",
 };
 
-const SLOT = 60;  // minutes per grid row
-const ROW_H = 44; // px per row
+const SLOT = 30;  // minutes per grid row (half-hour granularity)
+const LABEL_STEP = 60; // minutes between time labels / grid lines
+const ROW_H = 22; // px per row (44px per hour)
 const COL_COUNT = 5; // always render this many track columns
 
 function formatMin(min: number) {
@@ -139,7 +140,7 @@ function MobileSchedule({ day }: { day: ScheduleDay }) {
   const totalRows = Math.ceil((gridEnd - gridStart) / SLOT);
 
   const labels: number[] = [];
-  for (let m = gridStart; m <= gridEnd; m += SLOT) labels.push(m);
+  for (let m = gridStart; m <= gridEnd; m += LABEL_STEP) labels.push(m);
 
   function toRow(min: number) {
     return Math.round((min - gridStart) / SLOT) + 1;
@@ -160,7 +161,7 @@ function MobileSchedule({ day }: { day: ScheduleDay }) {
       {labels.map((min, i) => (
         <div
           key={min}
-          style={{ gridColumn: 1, gridRow: i + 1, alignSelf: "start" }}
+          style={{ gridColumn: 1, gridRow: toRow(min), alignSelf: "start" }}
           className="text-right pr-1 pt-1"
         >
           <span className="font-display text-[9px] font-semibold text-golden tabular-nums leading-none">
@@ -178,7 +179,7 @@ function MobileSchedule({ day }: { day: ScheduleDay }) {
           key={`line-${min}`}
           style={{
             gridColumn: `2 / ${trackCount + 2}`,
-            gridRow: i + 1,
+            gridRow: toRow(min),
             alignSelf: "start",
             borderTop: "1px dashed rgba(14,12,10,0.08)",
             pointerEvents: "none",
@@ -300,7 +301,7 @@ function DesktopSchedule({ day }: { day: ScheduleDay }) {
 
   // Generate one label per SLOT from gridStart through gridEnd (inclusive)
   const labels: number[] = [];
-  for (let m = gridStart; m <= gridEnd; m += SLOT) labels.push(m);
+  for (let m = gridStart; m <= gridEnd; m += LABEL_STEP) labels.push(m);
 
   function toRow(min: number) {
     return Math.round((min - gridStart) / SLOT) + 1;
@@ -320,7 +321,7 @@ function DesktopSchedule({ day }: { day: ScheduleDay }) {
         {labels.map((min, i) => (
           <div
             key={min}
-            style={{ gridColumn: 1, gridRow: i + 1, alignSelf: "start" }}
+            style={{ gridColumn: 1, gridRow: toRow(min), alignSelf: "start" }}
             className="text-right pr-3 pt-1"
           >
             <span className="font-display text-sm font-semibold text-golden tabular-nums leading-none">
@@ -338,7 +339,7 @@ function DesktopSchedule({ day }: { day: ScheduleDay }) {
             key={`line-${min}`}
             style={{
               gridColumn: `2 / ${COL_COUNT + 2}`,
-              gridRow: i + 1,
+              gridRow: toRow(min),
               alignSelf: "start",
               borderTop: "1px dashed rgba(14,12,10,0.08)",
               pointerEvents: "none",

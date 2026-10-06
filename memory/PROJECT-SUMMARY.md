@@ -42,7 +42,11 @@ Hero: fixed multi-layer logo that scatters apart on scroll.
 1. **Hero** — logo scatter, countdown to Oct 24 2026, "Get Updates" email modal, "What's Happening" anchor
 2. **About** — narrative + 4 value tiles (Race, Ride, Community, Family)
 3. **Activities** — visual grid: Race, Pump Track, Kids Area, Group Rides, Vendors
-4. **Schedule** — Sat/Sun tabbed timeline
+4. **Schedule** — Fri/Sat/Sun tabbed timeline (defaults to Saturday). Friday Oct 23 is a
+   pre-festival evening: Trunk-or-Treat Icebreaker (5–7 PM), Trail Group Ride (5:30–7 PM,
+   casual MTB ride led by Noel Lopez of Sugar Cycles), Spooky Urban Ride (7 PM). Sunday Pet
+   Adoptions are run by Sugar Land Animal Services and Fort Bend County Animal Services.
+   Source of truth: `content/schedule.ts`
 5. **Sponsors** — tier cards + "Become a Sponsor" modal with inquiry form
 6. **Volunteer** — CTA + modal with roles grid and inquiry form
 7. **Location** — map embed + directions (Google Maps: https://maps.app.goo.gl/bEKWwyC7MWatYk5AA)

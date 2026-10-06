@@ -78,6 +78,16 @@ _Update this file at the end of every session with a summary of what changed._
   (verified with `curl`, not just the browser tab, since the browser's `fetch` didn't reliably
   respect `credentials: 'omit'` in this tool). Test rows deleted from the DB afterward.
 
+## Session 7 — Schedule updates
+- Documented the Friday (Oct 23) schedule in PROJECT-SUMMARY.md
+- Added Friday "Trail Group Ride" (5:30–7:00 PM, casual MTB ride led by Noel Lopez of Sugar Cycles)
+- Sunday Pet Adoptions now credit Sugar Land Animal Services and Fort Bend County Animal Services
+- Applied FBMBA's final schedule copy to `content/schedule.ts`: each blurb now carries its
+  location/start point and Free / registration status (no component or styling changes)
+- Festival dates changed to Oct 23–25, 2026 in `app/layout.tsx` metadata, `app/opengraph-image.tsx`,
+  and the Hero venue line. Left alone: `prisma/schema.prisma` default `eventLabel` (needs a migration),
+  `Location.tsx` (Sat/Sun venue panels), Countdown (still Oct 24 8:00 AM, first race day)
+
 ---
 
 _Next session: get the waiver legal text (`content/waiver.ts`, placeholder currently) reviewed
