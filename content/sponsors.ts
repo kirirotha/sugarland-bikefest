@@ -150,6 +150,7 @@ export const eventSponsorLogos: SponsorLogo[] = [
   { name: "Lone Star Cycles", logoSrc: "/images/EventSponsorLogos/lone-star-cycles-logo.png", square: true },
   { name: "Patients First Direct Primary Care", logoSrc: "/images/EventSponsorLogos/patients-first.jpg", square: true },
   { name: "Texas Wonder", logoSrc: "/images/EventSponsorLogos/texas-wonder.jpg", square: true },
+  { name: "Fort Harris Fence Co.", logoSrc: "/images/FBMBAsponsorlogos/fort-harris-fence-cropped.png", square: true },
   { name: "Ninja", logoSrc: "/images/EventSponsorLogos/ninja.png", banner: true },
   { name: "Race Station", logoSrc: "/images/EventSponsorLogos/race-station.png", banner: true },
   { name: "Saint Arnold Brewing Co.", logoSrc: "/images/EventSponsorLogos/saint-arnold.png", topBanner: true },
