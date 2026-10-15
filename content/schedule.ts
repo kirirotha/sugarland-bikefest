@@ -36,7 +36,6 @@ export const schedule: ScheduleDay[] = [
     date: "Oct 24, 2026",
     displayEndMin: 19 * 60, // 7:00 PM
     items: [
-      { time: "7:00 AM", startMin: 420, durationMin: 180, title: "Roadie Group Ride", blurb: "Start: Sugar Land Pump Track. Road cycling through Sugar Land. All paces welcome. Free / No registration.", tag: "ride", track: 0 },
       { time: "10:00 AM", startMin: 600, durationMin: 120, title: "Bike Show", blurb: "Location: Sugar Land Pump Track. Show off your ride and check out other builds. Free / No registration.", tag: "social", track: 0 },
       { time: "8:00 AM", startMin: 480, durationMin: 300, title: "Pump Track Showdown", blurb: "Location: Sugar Land Pump Track. Head-to-head pump track racing. Costumes encouraged. Race registration required.", tag: "race", track: 1, registerUrl: "https://www.bikereg.com/76731" },
       { time: "9:00 AM", startMin: 540, durationMin: 120, title: "Women's MTB Group Ride", blurb: "Start: Sugar Land Pump Track. Women's group ride previewing Sunday's Brindley MTB Time Trial course. Free / No registration.", tag: "ride", track: 2 },
