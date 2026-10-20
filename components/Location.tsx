@@ -24,7 +24,7 @@ const venues = [
 
 const tips = [
   { Icon: Car,  title: "Parking",   body: "Free on-site parking with overflow at nearby lots.", image: "/images/parking-map.png" },
-  { Icon: Bike, title: "Ride In",   body: "Plentiful bike racks. Best way to skip traffic." },
+  { Icon: Bike, title: "Ride In",   body: "Plenty of space to park your bike. Best way to skip traffic." },
   { Icon: Bus,  title: "Rideshare", body: "Dedicated drop-off zone near the main entrance." },
 ];
 

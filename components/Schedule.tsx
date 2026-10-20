@@ -63,7 +63,10 @@ function MobileEventBlock({
         <div className={`grid h-5 w-5 shrink-0 place-items-center rounded-md ${tagChip[item.tag]} mt-0.5`}>
           <Icon size={10} />
         </div>
-        <span className="font-semibold text-[10px] text-ink leading-snug line-clamp-5 break-words min-w-0">{item.title}</span>
+        <span className="font-semibold text-[10px] text-ink leading-snug line-clamp-5 break-words min-w-0">
+          {item.title}
+          {item.byline && <span className="block font-medium text-[9px] text-ink/60">{item.byline}</span>}
+        </span>
       </button>
       <AnimatePresence>
         {open && (
@@ -88,6 +91,17 @@ function MobileEventBlock({
             <p className="mt-1.5 text-xs text-cream/60 leading-relaxed">{item.blurb}</p>
             {item.sponsoredBy && (
               <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-golden/70">{item.sponsoredBy}</p>
+            )}
+            {item.routeUrl && (
+              <a
+                href={item.routeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="mt-3 inline-flex items-center gap-1.5 rounded-full border border-golden/50 px-3 py-1.5 text-[11px] font-semibold text-golden transition hover:bg-golden/10"
+              >
+                View route on Strava <ExternalLink size={11} />
+              </a>
             )}
             {item.registerUrl && (
               <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -235,7 +249,10 @@ function EventBlock({
         <div className={`grid h-6 w-6 shrink-0 place-items-center rounded-lg ${tagChip[item.tag]}`}>
           <Icon size={12} />
         </div>
-        <span className="font-semibold text-sm text-ink leading-snug break-words">{item.title}</span>
+        <span className="font-semibold text-sm text-ink leading-snug break-words">
+          {item.title}
+          {item.byline && <span className="block font-medium text-xs text-ink/60">{item.byline}</span>}
+        </span>
       </div>
 
       {/* Tooltip */}
@@ -262,6 +279,16 @@ function EventBlock({
             <p className="mt-1.5 text-xs text-cream/60 leading-relaxed">{item.blurb}</p>
             {item.sponsoredBy && (
               <p className="mt-1.5 text-[10px] font-medium uppercase tracking-wide text-golden/70">{item.sponsoredBy}</p>
+            )}
+            {item.routeUrl && (
+              <a
+                href={item.routeUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="pointer-events-auto mt-3 inline-flex items-center gap-1.5 rounded-full border border-golden/50 px-3 py-1.5 text-[11px] font-semibold text-golden transition hover:bg-golden/10"
+              >
+                View route on Strava <ExternalLink size={11} />
+              </a>
             )}
             {item.registerUrl && (
               <div className="pointer-events-auto mt-3 flex flex-wrap items-center gap-2">

@@ -17,7 +17,7 @@ type FormData = z.infer<typeof schema>;
 const roles = [
   { Icon: Flag,           title: "Course Marshal",           body: "Keep racers safe and on-route." },
   { Icon: Wrench,         title: "Setup & Teardown",         body: "Build it Friday, break it down Sunday night." },
-  { Icon: HandHelping,    title: "Kids Zone Helper",         body: "Strider course, helmet fitting, sticker duty." },
+  { Icon: HandHelping,    title: "Kids Zone Helper",         body: "Strider/balance bike course, helmet fitting, sticker duty." },
   { Icon: ShieldCheck,    title: "First Aid Support",        body: "Coordinate with on-site medical team." },
   { Icon: Navigation,     title: "Group Ride Organizer",     body: "Help plan and lead group rides throughout the weekend." },
   { Icon: ClipboardList, title: "Race Registration",      body: "Assist riders with registration, waivers, and check-in on race day." },
