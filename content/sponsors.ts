@@ -156,6 +156,7 @@ export const eventSponsorLogos: SponsorLogo[] = [
   { name: "Fort Harris Fence Co.", logoSrc: "/images/FBMBAsponsorlogos/fort-harris-fence-cropped.png", square: true },
   { name: "Ninja", logoSrc: "/images/EventSponsorLogos/ninja.png", banner: true },
   { name: "Race Station", logoSrc: "/images/EventSponsorLogos/race-station.png", banner: true },
+  { name: "Alkek Velodrome", logoSrc: "/images/EventSponsorLogos/alkek-velodrome.png", banner: true },
   { name: "Saint Arnold Brewing Co.", logoSrc: "/images/EventSponsorLogos/saint-arnold.png", topBanner: true },
 ];
 
