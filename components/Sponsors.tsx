@@ -5,7 +5,7 @@ import Section from "./ui/Section";
 import Reveal from "./ui/Reveal";
 import SponsorModal from "./ui/SponsorModal";
 import { Megaphone, ArrowRight } from "lucide-react";
-import { sponsorLogos, eventSponsorLogos, mtbRaceSponsorLogos, pumpTrackSponsorLogos, type SponsorLogo } from "@/content/sponsors";
+import { sponsorLogos, eventSponsorLogos, mtbRaceSponsorLogos, pumpTrackSponsorLogos, partnerLogos, type SponsorLogo } from "@/content/sponsors";
 
 function openWithScroll(id: string, open: () => void) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -155,6 +155,16 @@ export default function Sponsors() {
         </div>
       </Reveal>
       <LogoStrip label="Retail Sponsors" logos={eventSponsorLogos} />
+      <Reveal>
+        <div className="mb-8 space-y-3 sm:space-y-4">
+          <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-cream/50">
+            Partners
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            {partnerLogos.map((s) => <LogoTile key={s.name} s={s} />)}
+          </div>
+        </div>
+      </Reveal>
       <LogoStrip label="FBMBA Sponsors" logos={sponsorLogos} scale={1.15} />
 
       <Reveal>

@@ -157,9 +157,13 @@ export const eventSponsorLogos: SponsorLogo[] = [
   { name: "Texas State Optical", logoSrc: "/images/FBMBAsponsorlogos/texas-state-optical-cropped.png", square: true },
   { name: "Ninja", logoSrc: "/images/EventSponsorLogos/ninja.png", banner: true },
   { name: "Race Station", logoSrc: "/images/EventSponsorLogos/race-station.png", banner: true },
-  { name: "Alkek Velodrome", logoSrc: "/images/EventSponsorLogos/alkek-velodrome.png", banner: true },
   { name: "Fitness Connection", logoSrc: "/images/EventSponsorLogos/fitness-connection.png", banner: true },
   { name: "Saint Arnold Brewing Co.", logoSrc: "/images/EventSponsorLogos/saint-arnold.png", topBanner: true },
+];
+
+export const partnerLogos: SponsorLogo[] = [
+  { name: "Alkek Velodrome", logoSrc: "/images/PartnerLogos/alkek-velodrome.png", banner: true },
+  { name: "Bravo Photography", logoSrc: "/images/PartnerLogos/bravo-photography.jpg", square: true },
 ];
 
 export const mtbRaceSponsorLogos: SponsorLogo[] = [
