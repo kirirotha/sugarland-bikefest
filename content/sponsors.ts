@@ -154,6 +154,7 @@ export const eventSponsorLogos: SponsorLogo[] = [
   { name: "Patients First Direct Primary Care", logoSrc: "/images/EventSponsorLogos/patients-first.jpg", square: true },
   { name: "Texas Wonder", logoSrc: "/images/EventSponsorLogos/texas-wonder.jpg", square: true },
   { name: "Fort Harris Fence Co.", logoSrc: "/images/FBMBAsponsorlogos/fort-harris-fence-cropped.png", square: true },
+  { name: "Texas State Optical", logoSrc: "/images/FBMBAsponsorlogos/texas-state-optical-cropped.png", square: true },
   { name: "Ninja", logoSrc: "/images/EventSponsorLogos/ninja.png", banner: true },
   { name: "Race Station", logoSrc: "/images/EventSponsorLogos/race-station.png", banner: true },
   { name: "Alkek Velodrome", logoSrc: "/images/EventSponsorLogos/alkek-velodrome.png", banner: true },

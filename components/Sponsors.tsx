@@ -20,7 +20,7 @@ const TILE_BASE = {
   boosted: [128, 256, 160, 320],
   topBanner: [112, 320, 128, 416],
   banner: [56, 160, 64, 200],
-  square: [99, 99, 119, 119],
+  square: [99, 99, 104, 104],
   wide: [64, 128, 80, 160],
 } as const;
 
