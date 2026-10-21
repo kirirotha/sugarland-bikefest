@@ -118,7 +118,7 @@ function LogoStrip({ label, logos, scale = 1 }: { label: string; logos: SponsorL
           </div>
         )}
         {/* more than one desktop row of squares: split evenly so a lone logo doesn't wrap onto its own line */}
-        {(square.length > 8
+        {(square.length > 9
           ? [square.slice(0, Math.ceil(square.length / 2)), square.slice(Math.ceil(square.length / 2))]
           : square.length > 0
           ? [square]

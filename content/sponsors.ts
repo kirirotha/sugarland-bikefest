@@ -65,6 +65,7 @@ export const tiers: Tier[] = [
       "Logo and clickable link on FBMBA website",
       "Recognition as an official FBMBA Green Circle sponsor",
     ],
+    claimedBy: "8 Degree Pedal",
   },
   {
     name: "Bicycle Shops & Vendors",
@@ -157,7 +158,6 @@ export const eventSponsorLogos: SponsorLogo[] = [
   { name: "Texas State Optical", logoSrc: "/images/FBMBAsponsorlogos/texas-state-optical-cropped.png", square: true },
   { name: "Trek Sugar Land", logoSrc: "/images/FBMBAsponsorlogos/trek-sugar-land-cropped.png" },
   { name: "Sun & Ski Sports", logoSrc: "/images/FBMBAsponsorlogos/sun-and-ski-sports-cropped.png" },
-  { name: "8 Degree Pedal", logoSrc: "/images/FBMBAsponsorlogos/8-degree-pedal-cropped.png", square: true },
   { name: "Ninja", logoSrc: "/images/EventSponsorLogos/ninja.png", banner: true },
   { name: "Race Station", logoSrc: "/images/EventSponsorLogos/race-station.png", banner: true },
   { name: "Fitness Connection", logoSrc: "/images/EventSponsorLogos/fitness-connection.png", banner: true },
