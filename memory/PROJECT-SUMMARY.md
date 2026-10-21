@@ -44,7 +44,7 @@ Hero: fixed multi-layer logo that scatters apart on scroll.
 3. **Activities** — visual grid: Race, Pump Track, Kids Area, Group Rides, Vendors
 4. **Schedule** — Fri/Sat/Sun tabbed timeline (defaults to Saturday). Friday Oct 23 is a
    pre-festival evening: Trunk-or-Treat Icebreaker (5–7 PM), Trail Group Ride (5:30–7 PM,
-   casual MTB ride led by Noel Lopez of Sugar Cycles), Spooky Urban Ride (7 PM). Sunday Pet
+   casual MTB ride led by Noel Lopez of Sugar Cycles), Spooky Urban Ride Out (7 PM). Sunday Pet
    Adoptions are run by Sugar Land Animal Services and Fort Bend County Animal Services.
    Source of truth: `content/schedule.ts`
 5. **Sponsors** — tier cards + "Become a Sponsor" modal with inquiry form
