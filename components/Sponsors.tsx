@@ -117,11 +117,17 @@ function LogoStrip({ label, logos, scale = 1 }: { label: string; logos: SponsorL
             {banner.map((s) => <LogoTile key={s.name} s={s} scale={scale} />)}
           </div>
         )}
-        {square.length > 0 && (
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
-            {square.map((s) => <LogoTile key={s.name} s={s} scale={scale} />)}
+        {/* more than one desktop row of squares: split evenly so a lone logo doesn't wrap onto its own line */}
+        {(square.length > 8
+          ? [square.slice(0, Math.ceil(square.length / 2)), square.slice(Math.ceil(square.length / 2))]
+          : square.length > 0
+          ? [square]
+          : []
+        ).map((row, i) => (
+          <div key={i} className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+            {row.map((s) => <LogoTile key={s.name} s={s} scale={scale} />)}
           </div>
-        )}
+        ))}
       </div>
     </Reveal>
   );
