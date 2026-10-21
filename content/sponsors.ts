@@ -51,6 +51,7 @@ export const tiers: Tier[] = [
       "Logo and clickable link on FBMBA website",
       "Recognition as an official FBMBA Blue Square sponsor",
     ],
+    claimedBy: "Heinrich Holistic Health",
   },
   {
     name: "Awards Sponsor",
@@ -116,6 +117,8 @@ export type SponsorLogo = {
   featured?: boolean;
   /** show 2x larger on its own second row, below the featured row */
   boosted?: boolean;
+  /** 2.5x-ish size, between boosted and featured — used so two race sponsors fit side by side */
+  large?: boolean;
   /** logo is an extra-wide banner shape (ratio > 2:1) — render in a wider tile than the default */
   banner?: boolean;
   /** banner shape at 2x, own row above the rest of the strip */
@@ -158,4 +161,8 @@ export const eventSponsorLogos: SponsorLogo[] = [
 
 export const mtbRaceSponsorLogos: SponsorLogo[] = [
   { name: "The Janos Family", logoSrc: "/images/MTBRaceSponsorLogos/janos-family.png", featured: true, square: true },
+];
+
+export const pumpTrackSponsorLogos: SponsorLogo[] = [
+  { name: "Heinrich Holistic Health", logoSrc: "/images/FBMBAsponsorlogos/heinrich-holistic-health-cropped.png", large: true },
 ];

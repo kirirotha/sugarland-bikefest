@@ -5,7 +5,7 @@ import Section from "./ui/Section";
 import Reveal from "./ui/Reveal";
 import SponsorModal from "./ui/SponsorModal";
 import { Megaphone, ArrowRight } from "lucide-react";
-import { sponsorLogos, eventSponsorLogos, mtbRaceSponsorLogos, type SponsorLogo } from "@/content/sponsors";
+import { sponsorLogos, eventSponsorLogos, mtbRaceSponsorLogos, pumpTrackSponsorLogos, type SponsorLogo } from "@/content/sponsors";
 
 function openWithScroll(id: string, open: () => void) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -16,6 +16,7 @@ function openWithScroll(id: string, open: () => void) {
 const TILE_BASE = {
   featuredSquare: [297, 297, 357, 357],
   featured: [192, 384, 240, 480],
+  large: [160, 320, 200, 400],
   boosted: [128, 256, 160, 320],
   topBanner: [112, 320, 128, 416],
   banner: [56, 160, 64, 208],
@@ -28,6 +29,8 @@ function LogoTile({ s, scale = 1 }: { s: SponsorLogo; scale?: number }) {
     ? "featuredSquare"
     : s.featured
     ? "featured"
+    : s.large
+    ? "large"
     : s.boosted
     ? "boosted"
     : s.topBanner
@@ -134,7 +137,23 @@ export default function Sponsors() {
       title="Powered by Our Partners"
       accent="sunset"
     >
-      <LogoStrip label="MTB Race Sponsor" logos={mtbRaceSponsorLogos} />
+      <Reveal>
+        <div className="mb-8 flex flex-wrap items-start justify-center gap-x-10 gap-y-6 sm:gap-x-16">
+          {[
+            { label: "MTB Race Sponsor", logos: mtbRaceSponsorLogos },
+            { label: "Pump Track Race Sponsor", logos: pumpTrackSponsorLogos },
+          ].map(({ label, logos }) => (
+            <div key={label} className="space-y-3 sm:space-y-4">
+              <p className="text-center text-xs font-semibold uppercase tracking-[0.18em] text-cream/50">
+                {label}
+              </p>
+              <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6">
+                {logos.map((s) => <LogoTile key={s.name} s={s} />)}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Reveal>
       <LogoStrip label="Retail Sponsors" logos={eventSponsorLogos} />
       <LogoStrip label="FBMBA Sponsors" logos={sponsorLogos} scale={1.15} />
 

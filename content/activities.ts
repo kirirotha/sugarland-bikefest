@@ -14,8 +14,8 @@ export type Activity = {
 
 export const activities: Activity[] = [
   { title: "MTB Time Trial", blurb: "FBMBA's flagship mountain bike race — your line, your clock.", Icon: Mountain, accent: "forest", registerUrl: "https://www.bikereg.com/76731", sponsoredBy: "Supported by The Janos Family" },
-  { title: "Pump Track Racing", blurb: "Head-to-head brackets on the city's twisting pump track.", Icon: Zap, accent: "sunset", registerUrl: "https://www.bikereg.com/76731" },
-  { title: "Kids Zone", blurb: "Strider/balance bike course, helmet decorating, balance bike race.", Icon: Baby, accent: "golden" },
+  { title: "Pump Track Racing", blurb: "Head-to-head brackets on the city's twisting pump track.", Icon: Zap, accent: "sunset", registerUrl: "https://www.bikereg.com/76731", sponsoredBy: "Supported by Heinrich Holistic Health" },
+{ title: "Kids Zone", blurb: "Strider/balance bike course, helmet decorating, balance bike race.", Icon: Baby, accent: "golden" },
   { title: "Group Rides", blurb: "Road, MTB, BMX, urban — pick your pace.", Icon: Users, accent: "sunset" },
   { title: "Vendor Village", blurb: "Local shops, brands, food trucks, and music.", Icon: Store, accent: "golden" },
 ];
