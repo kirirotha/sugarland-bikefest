@@ -158,6 +158,7 @@ export const eventSponsorLogos: SponsorLogo[] = [
   { name: "Texas State Optical", logoSrc: "/images/FBMBAsponsorlogos/texas-state-optical-cropped.png", square: true },
   { name: "Trek Sugar Land", logoSrc: "/images/FBMBAsponsorlogos/trek-sugar-land-cropped.png" },
   { name: "Sun & Ski Sports", logoSrc: "/images/FBMBAsponsorlogos/sun-and-ski-sports-cropped.png" },
+  { name: "ProBikes Texas", logoSrc: "/images/EventSponsorLogos/probikes-texas.png" },
   { name: "Ninja", logoSrc: "/images/EventSponsorLogos/ninja.png", banner: true },
   { name: "Race Station", logoSrc: "/images/EventSponsorLogos/race-station.png", banner: true },
   { name: "Fitness Connection", logoSrc: "/images/EventSponsorLogos/fitness-connection.png", banner: true },
