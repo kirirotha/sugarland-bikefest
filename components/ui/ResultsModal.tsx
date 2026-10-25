@@ -14,6 +14,7 @@ const placeStyle: Record<number, string> = {
 
 export default function ResultsModal({ open, onClose }: Props) {
   const [activeRace, setActiveRace] = useState(0);
+  const [activeCat, setActiveCat] = useState(0);
   const hasResults = results.length > 0;
 
   return (
@@ -22,7 +23,7 @@ export default function ResultsModal({ open, onClose }: Props) {
       onClose={onClose}
       title="Race Results"
       subtitle={hasResults ? "Official results — Sugar Land Bike Fest 2026" : "Results will be posted here after race weekend."}
-      maxWidth="max-w-3xl"
+      maxWidth="max-w-5xl"
       fadeIn
     >
       {!hasResults ? (
@@ -58,7 +59,7 @@ export default function ResultsModal({ open, onClose }: Props) {
               {results.map((r, i) => (
                 <button
                   key={r.race}
-                  onClick={() => setActiveRace(i)}
+                  onClick={() => { setActiveRace(i); setActiveCat(0); }}
                   className={`rounded-full px-4 py-1.5 text-sm font-semibold transition ${
                     activeRace === i
                       ? "bg-sunset text-white shadow-md shadow-sunset/30"
@@ -71,7 +72,44 @@ export default function ResultsModal({ open, onClose }: Props) {
             </div>
           )}
 
-          {results[activeRace]?.categories.map((cat) => (
+          {results[activeRace]?.categories.some((c) => c.image) && (
+            <div className="mb-5">
+              <div className="flex gap-2 flex-wrap">
+                {results[activeRace].categories.map((c, i) => (
+                  <button
+                    key={c.category}
+                    onClick={() => setActiveCat(i)}
+                    className={`rounded-full px-3 py-1 text-xs sm:text-sm font-semibold transition ${
+                      activeCat === i
+                        ? "bg-forest text-cream shadow-md"
+                        : "bg-cream-warm text-ink/70 hover:text-ink border border-ink/10"
+                    }`}
+                  >
+                    {c.category}
+                  </button>
+                ))}
+              </div>
+              {(() => {
+                const cat = results[activeRace].categories[activeCat];
+                return cat?.image ? (
+                  <a href={cat.image} target="_blank" rel="noopener noreferrer" className="mt-4 block">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={cat.image}
+                      alt={`${results[activeRace].race} results — ${cat.category}: ${cat.entries
+                        .slice(0, 3)
+                        .map((e) => `${e.place}. ${e.name}`)
+                        .join(", ")}`}
+                      className="w-full rounded-2xl border border-ink/10"
+                    />
+                    <span className="mt-2 block text-center text-xs text-ink/50">Tap image to open full size</span>
+                  </a>
+                ) : null;
+              })()}
+            </div>
+          )}
+
+          {results[activeRace]?.categories.filter((c) => !c.image).map((cat) => (
             <div key={cat.category} className="mb-6">
               <div className="flex items-center gap-2 mb-3">
                 <Medal size={16} className="text-sunset" />

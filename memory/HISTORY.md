@@ -88,6 +88,13 @@ _Update this file at the end of every session with a summary of what changed._
   and the Hero venue line. Left alone: `prisma/schema.prisma` default `eventLabel` (needs a migration),
   `Location.tsx` (Sat/Sun venue panels), Countdown (still Oct 24 8:00 AM, first race day)
 
+## Session 8 — Pump Track results
+- Added the 12 per-class Pump Track result graphics (qualifying times, bracket, final standings) to
+  `public/images/results/pump-track/`; `content/results.ts` now has a "Pump Track Race" entry (podium
+  data from "2026 Bike Fest PT v4 results.xlsx" + `image` per class). `ResultsModal.tsx` shows a class
+  chip selector and the selected class's graphic (tap to open full size). Races without images still
+  use the old table layout.
+
 ---
 
 _Next session: get the waiver legal text (`content/waiver.ts`, placeholder currently) reviewed
