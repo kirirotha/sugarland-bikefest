@@ -44,7 +44,7 @@ export default function ResultsModal({ open, onClose }: Props) {
             as each event wraps. Check back during the weekend for live updates.
           </p>
           <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm text-ink/50">
-            {["MTB Time Trial", "Pump Track Race"].map((r) => (
+            {["Pump Track Showdown", "MTB Time Trial"].map((r) => (
               <span key={r} className="rounded-full border border-ink/10 bg-cream-warm px-3 py-1">
                 {r}
               </span>

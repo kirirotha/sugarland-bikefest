@@ -36,7 +36,7 @@ export default function Results() {
                 <p className="mt-1 text-sm sm:text-base text-ink/70 max-w-md">
                   {hasResults
                     ? "Official results for all race categories — MTB Time Trial, Pump Track, and more."
-                    : "MTB Time Trial and Pump Track Race results will be posted here as each race finishes."}
+                    : "Pump Track Showdown and MTB Time Trial results will be posted here as each race finishes."}
                 </p>
               </div>
             </div>
