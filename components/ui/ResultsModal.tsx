@@ -72,7 +72,7 @@ export default function ResultsModal({ open, onClose }: Props) {
             </div>
           )}
 
-          {results[activeRace]?.categories.some((c) => c.image) && (
+          {results[activeRace]?.categories.length > 1 && (
             <div className="mb-5">
               <div className="flex gap-2 flex-wrap">
                 {results[activeRace].categories.map((c, i) => (
@@ -98,6 +98,7 @@ export default function ResultsModal({ open, onClose }: Props) {
                       src={cat.image}
                       alt={`${results[activeRace].race} results — ${cat.category}: ${cat.entries
                         .slice(0, 3)
+                        .filter((e) => e.place)
                         .map((e) => `${e.place}. ${e.name}`)
                         .join(", ")}`}
                       className="w-full rounded-2xl border border-ink/10"
@@ -109,7 +110,7 @@ export default function ResultsModal({ open, onClose }: Props) {
             </div>
           )}
 
-          {results[activeRace]?.categories.filter((c) => !c.image).map((cat) => (
+          {results[activeRace]?.categories.filter((c, i) => !c.image && i === activeCat).map((cat) => (
             <div key={cat.category} className="mb-6">
               <div className="flex items-center gap-2 mb-3">
                 <Medal size={16} className="text-sunset" />
@@ -126,10 +127,10 @@ export default function ResultsModal({ open, onClose }: Props) {
                   </thead>
                   <tbody className="divide-y divide-ink/8 bg-white/60">
                     {cat.entries.map((e) => (
-                      <tr key={e.place} className="hover:bg-cream-warm/40 transition">
+                      <tr key={e.name} className="hover:bg-cream-warm/40 transition">
                         <td className="px-4 py-3">
-                          <span className={`inline-grid h-7 w-7 place-items-center rounded-full text-xs ${placeStyle[e.place] ?? "bg-ink/5 text-ink/60"}`}>
-                            {e.place}
+                          <span className={`inline-grid h-7 w-7 place-items-center rounded-full text-xs ${(e.place && placeStyle[e.place]) || "bg-ink/5 text-ink/60"}`}>
+                            {e.place ?? "–"}
                           </span>
                         </td>
                         <td className="px-4 py-3">
